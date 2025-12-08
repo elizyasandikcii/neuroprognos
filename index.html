@@ -1,0 +1,1769 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NeuroPrognos | HD Risk Assessment for Known & Unknown CAG Status</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+        }
+
+        :root {
+            --primary: #2a5c8a;
+            --secondary: #4a9fd5;
+            --accent: #ff6b6b;
+            --light: #f8f9fa;
+            --dark: #212529;
+            --gray: #6c757d;
+            --light-gray: #e9ecef;
+            --success: #28a745;
+            --warning: #ffc107;
+            --danger: #dc3545;
+            --info: #17a2b8;
+            --border-radius: 8px;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            --transition: all 0.3s ease;
+        }
+
+        body {
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+        }
+
+        /* Header & Navigation */
+        header {
+            background-color: white;
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: var(--primary);
+        }
+
+        .logo-icon {
+            color: var(--secondary);
+            font-size: 1.8rem;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            transition: var(--transition);
+            padding: 5px 0;
+            position: relative;
+        }
+
+        nav a:hover {
+            color: var(--primary);
+        }
+
+        nav a.active {
+            color: var(--primary);
+        }
+
+        nav a.active:after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: var(--primary);
+        }
+
+        .cta-button {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 10px 24px;
+            border-radius: var(--border-radius);
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .cta-button:hover {
+            background-color: var(--secondary);
+            transform: translateY(-2px);
+        }
+
+        .secondary-button {
+            background-color: transparent;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+            padding: 8px 20px;
+            border-radius: var(--border-radius);
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .secondary-button:hover {
+            background-color: rgba(42, 92, 138, 0.1);
+        }
+
+        /* Calculator Selector */
+        .calculator-selector {
+            text-align: center;
+            margin: 40px 0;
+        }
+
+        .selector-container {
+            display: inline-flex;
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 5px;
+            box-shadow: var(--shadow);
+            margin-top: 20px;
+        }
+
+        .selector-btn {
+            padding: 12px 30px;
+            border: none;
+            background: none;
+            font-weight: 600;
+            cursor: pointer;
+            border-radius: calc(var(--border-radius) - 2px);
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .selector-btn.active {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .selector-btn:not(.active):hover {
+            background-color: rgba(42, 92, 138, 0.1);
+        }
+
+        /* Calculator Tabs */
+        .calculator-tab {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .calculator-tab.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 80px 0;
+            background: linear-gradient(135deg, rgba(42, 92, 138, 0.05) 0%, rgba(74, 159, 213, 0.05) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            color: var(--primary);
+            line-height: 1.2;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: var(--gray);
+            margin-bottom: 30px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-shapes {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .shape {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.1;
+        }
+
+        .shape-1 {
+            width: 300px;
+            height: 300px;
+            background-color: var(--primary);
+            top: -150px;
+            right: -100px;
+        }
+
+        .shape-2 {
+            width: 200px;
+            height: 200px;
+            background-color: var(--secondary);
+            bottom: -100px;
+            left: -50px;
+        }
+
+        /* Calculator Section */
+        .section {
+            padding: 60px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+
+        .section-title p {
+            color: var(--gray);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .calculator-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            padding: 40px;
+            margin-top: 20px;
+        }
+
+        @media (max-width: 992px) {
+            .calculator-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .calculator-form {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        .calculator-form h3 {
+            color: var(--primary);
+            margin-bottom: 10px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--light-gray);
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .form-group label {
+            font-weight: 600;
+            color: var(--dark);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .info-icon {
+            color: var(--secondary);
+            cursor: help;
+        }
+
+        .tooltip {
+            position: relative;
+            display: inline-block;
+        }
+
+        .tooltip .tooltiptext {
+            visibility: hidden;
+            width: 300px;
+            background-color: var(--dark);
+            color: white;
+            text-align: left;
+            border-radius: var(--border-radius);
+            padding: 15px;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            margin-left: -150px;
+            opacity: 0;
+            transition: opacity 0.3s;
+            font-size: 0.9rem;
+            font-weight: normal;
+            box-shadow: var(--shadow);
+        }
+
+        .tooltip:hover .tooltiptext {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        .form-group input, .form-group select {
+            padding: 12px 15px;
+            border: 1px solid var(--light-gray);
+            border-radius: var(--border-radius);
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        .form-group input:focus, .form-group select:focus {
+            outline: none;
+            border-color: var(--secondary);
+            box-shadow: 0 0 0 3px rgba(74, 159, 213, 0.2);
+        }
+
+        .slider-container {
+            padding: 10px 0;
+        }
+
+        .slider {
+            width: 100%;
+            height: 8px;
+            border-radius: 4px;
+            background: var(--light-gray);
+            outline: none;
+            -webkit-appearance: none;
+        }
+
+        .slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            background: var(--primary);
+            cursor: pointer;
+        }
+
+        .slider-value {
+            text-align: right;
+            font-weight: 600;
+            color: var(--primary);
+            margin-top: 5px;
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 5px;
+        }
+
+        .checkbox-group input {
+            width: auto;
+        }
+
+        .family-history-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 10px;
+        }
+
+        .family-member {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .family-member label {
+            font-size: 0.9rem;
+            font-weight: normal;
+        }
+
+        .results-container {
+            background-color: rgba(42, 92, 138, 0.05);
+            border-radius: var(--border-radius);
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .results-header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--light-gray);
+        }
+
+        .risk-circle {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            font-weight: 700;
+            box-shadow: var(--shadow);
+        }
+
+        .risk-low {
+            background: linear-gradient(135deg, var(--success), #20c997);
+        }
+
+        .risk-medium {
+            background: linear-gradient(135deg, var(--warning), #fd7e14);
+        }
+
+        .risk-high {
+            background: linear-gradient(135deg, var(--danger), #c92a2a);
+        }
+
+        .risk-metrics {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .metric-card {
+            background: white;
+            padding: 15px;
+            border-radius: var(--border-radius);
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        .metric-value {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 5px;
+        }
+
+        .metric-label {
+            font-size: 0.9rem;
+            color: var(--gray);
+        }
+
+        .chart-container {
+            height: 200px;
+            margin: 20px 0;
+            position: relative;
+        }
+
+        .clinical-interpretation {
+            background: white;
+            padding: 20px;
+            border-radius: var(--border-radius);
+            margin: 20px 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        .clinical-interpretation h4 {
+            color: var(--primary);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .treatment-recs {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid var(--light-gray);
+        }
+
+        .treatment-recs h3 {
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+
+        .rec-item {
+            background: white;
+            padding: 15px;
+            border-radius: var(--border-radius);
+            margin-bottom: 15px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            border-left: 4px solid var(--secondary);
+        }
+
+        .rec-item h4 {
+            margin-bottom: 5px;
+            color: var(--dark);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .evidence-level {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            background: var(--light-gray);
+            color: var(--gray);
+        }
+
+        .evidence-a {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .evidence-b {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .evidence-c {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        .warning-box {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            border-radius: var(--border-radius);
+            margin: 20px 0;
+        }
+
+        .warning-box h4 {
+            color: #856404;
+            margin-bottom: 5px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* Data Sources Section */
+        .data-sources {
+            background: var(--light-gray);
+            padding: 60px 0;
+        }
+
+        .sources-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .source-card {
+            background: white;
+            padding: 30px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+        }
+
+        .source-card h3 {
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+
+        .source-card .citation {
+            font-style: italic;
+            color: var(--gray);
+            font-size: 0.9rem;
+            margin: 10px 0;
+            padding-left: 15px;
+            border-left: 3px solid var(--light-gray);
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 60px 0 30px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: white;
+        }
+
+        .footer-links h4, .footer-contact h4 {
+            margin-bottom: 20px;
+            color: white;
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links a {
+            color: #adb5bd;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            color: white;
+        }
+
+        .footer-contact p {
+            margin-bottom: 10px;
+            color: #adb5bd;
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid #495057;
+            color: #adb5bd;
+            font-size: 0.9rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-container {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            nav ul {
+                gap: 15px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+            
+            .calculator-container {
+                padding: 20px;
+            }
+            
+            .section {
+                padding: 50px 0;
+            }
+            
+            .risk-metrics {
+                grid-template-columns: 1fr;
+            }
+            
+            .selector-container {
+                flex-direction: column;
+            }
+            
+            .selector-btn {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header & Navigation -->
+    <header>
+        <div class="container">
+            <div class="nav-container">
+                <div class="logo">
+                    <i class="fas fa-brain logo-icon"></i>
+                    <span>NeuroPrognos</span>
+                </div>
+                <nav>
+                    <ul>
+                        <li><a href="#home" class="active">Home</a></li>
+                        <li><a href="#calculator">Risk Calculator</a></li>
+                        <li><a href="#sources">Data Sources</a></li>
+                        <li><a href="#about">About HD</a></li>
+                        <li><a href="#resources">Resources</a></li>
+                    </ul>
+                </nav>
+                <a href="#calculator" class="cta-button">Start Assessment</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-shapes">
+            <div class="shape shape-1"></div>
+            <div class="shape shape-2"></div>
+        </div>
+        <div class="container">
+            <div class="hero-content">
+                <h1>Huntington's Disease Risk Assessment</h1>
+                <p>Evidence-based risk calculation for both known and unknown CAG repeat status. Get personalized recommendations based on your genetic and clinical profile.</p>
+                <a href="#calculator" class="cta-button">Choose Your Assessment Type <i class="fas fa-arrow-right"></i></a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Calculator Section -->
+    <section class="section" id="calculator">
+        <div class="container">
+            <div class="section-title">
+                <h2>HD Risk Calculator</h2>
+                <p>Select your assessment type based on whether you know your CAG repeat status</p>
+            </div>
+            
+            <div class="calculator-selector">
+                <div class="selector-container">
+                    <button class="selector-btn active" id="tabKnownBtn">
+                        <i class="fas fa-dna"></i>
+                        Known CAG Repeat
+                    </button>
+                    <button class="selector-btn" id="tabUnknownBtn">
+                        <i class="fas fa-question-circle"></i>
+                        Unknown CAG Repeat
+                    </button>
+                </div>
+                <p class="description" id="tabDescription" style="margin-top: 15px; color: var(--gray);">
+                    For individuals with confirmed genetic testing results
+                </p>
+            </div>
+            
+            <!-- Known CAG Repeat Tab -->
+            <div class="calculator-tab active" id="tabKnown">
+                <div class="calculator-container">
+                    <div class="calculator-form">
+                        <h3>Genetic & Clinical Information</h3>
+                        
+                        <div class="form-group">
+                            <label for="knownAge">
+                                Current Age
+                                <div class="tooltip">
+                                    <i class="fas fa-info-circle info-icon"></i>
+                                    <span class="tooltiptext">Age significantly impacts HD onset probability. The Langbehn formula uses age and CAG repeats to calculate diagnosis risk.</span>
+                                </div>
+                            </label>
+                            <input type="number" id="knownAge" min="18" max="100" value="35">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="knownCAG">
+                                CAG Repeat Length
+                                <div class="tooltip">
+                                    <i class="fas fa-info-circle info-icon"></i>
+                                    <span class="tooltiptext">Normal: <36 repeats. Reduced penetrance: 36-39. Full penetrance: ≥40. Higher repeats correlate with earlier onset.</span>
+                                </div>
+                            </label>
+                            <input type="number" id="knownCAG" min="10" max="100" value="42">
+                        </div>
+                        
+                        <div class="warning-box">
+                            <h4><i class="fas fa-exclamation-triangle"></i> Genetic Testing Status</h4>
+                            <p>If you have not had confirmatory genetic testing, please use the "Unknown CAG Repeat" assessment instead.</p>
+                        </div>
+                        
+                        <h3>Clinical Assessment</h3>
+                        
+                        <div class="form-group">
+                            <label for="knownDiagnosisStatus">
+                                Clinical Diagnosis Status
+                            </label>
+                            <select id="knownDiagnosisStatus">
+                                <option value="premanifest">Premanifest (no symptoms)</option>
+                                <option value="prodromal">Prodromal (subtle signs)</option>
+                                <option value="early">Early Manifest HD</option>
+                                <option value="moderate">Moderate HD</option>
+                                <option value="advanced">Advanced HD</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="knownMotorScore">
+                                Total Motor Score (TMS)
+                                <div class="tooltip">
+                                    <i class="fas fa-info-circle info-icon"></i>
+                                    <span class="tooltiptext">UHDRS Total Motor Score (0-124). Diagnostic threshold: ≥10 in gene carriers.</span>
+                                </div>
+                            </label>
+                            <div class="slider-container">
+                                <input type="range" min="0" max="124" value="5" class="slider" id="knownMotorScore">
+                                <div class="slider-value" id="knownMotorValue">5</div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="knownCognitiveScore">
+                                Cognitive Assessment Score (z-score)
+                            </label>
+                            <div class="slider-container">
+                                <input type="range" min="-5" max="2" value="0" step="0.1" class="slider" id="knownCognitiveScore">
+                                <div class="slider-value" id="knownCognitiveValue">0.0</div>
+                            </div>
+                        </div>
+                        
+                        <button class="cta-button" id="calculateKnownBtn">
+                            <i class="fas fa-calculator"></i> Calculate Known CAG Risk
+                        </button>
+                        
+                        <div style="font-size: 0.85rem; color: var(--gray); margin-top: 15px;">
+                            <i class="fas fa-shield-alt"></i> All calculations performed locally. No data transmitted.
+                        </div>
+                    </div>
+                    
+                    <div class="results-container">
+                        <div class="results-header">
+                            <div class="risk-circle risk-medium" id="knownRiskCircle">
+                                <span id="knownRiskPercentage">--%</span>
+                            </div>
+                            <h3 id="knownRiskCategory">Complete assessment to see results</h3>
+                            <p id="knownRiskDescription">Based on Langbehn formula and PREDICT-HD models</p>
+                        </div>
+                        
+                        <div class="risk-metrics">
+                            <div class="metric-card">
+                                <div class="metric-value" id="knownFiveYearRisk">--%</div>
+                                <div class="metric-label">5-Year Diagnosis Risk</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value" id="knownTenYearRisk">--%</div>
+                                <div class="metric-label">10-Year Diagnosis Risk</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value" id="knownExpectedOnset">--</div>
+                                <div class="metric-label">Expected Onset Age</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value" id="knownCAPScore">--</div>
+                                <div class="metric-label">CAP Score</div>
+                            </div>
+                        </div>
+                        
+                        <div class="chart-container">
+                            <canvas id="knownProgressionChart"></canvas>
+                        </div>
+                        
+                        <div class="clinical-interpretation">
+                            <h4><i class="fas fa-stethoscope"></i> Clinical Interpretation</h4>
+                            <div id="knownClinicalInterpretation">
+                                <p>Complete the assessment to receive evidence-based clinical interpretation based on your genetic profile.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="treatment-recs">
+                            <h3>Evidence-Based Recommendations</h3>
+                            <div id="knownRecommendations">
+                                <div class="rec-item">
+                                    <h4>Complete Assessment <span class="evidence-level">Required</span></h4>
+                                    <p>Fill in your genetic and clinical information to receive personalized recommendations.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Unknown CAG Repeat Tab -->
+            <div class="calculator-tab" id="tabUnknown">
+                <div class="calculator-container">
+                    <div class="calculator-form">
+                        <h3>Family History & Clinical Assessment</h3>
+                        
+                        <div class="form-group">
+                            <label for="unknownAge">
+                                Current Age
+                            </label>
+                            <input type="number" id="unknownAge" min="18" max="100" value="35">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="unknownGender">
+                                Biological Sex
+                            </label>
+                            <select id="unknownGender">
+                                <option value="male">Male</option>
+                                <option value="female">Female</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Family History of HD</label>
+                            <div class="family-history-grid">
+                                <div class="family-member">
+                                    <label>Parent (Mother or Father)</label>
+                                    <select id="parentHD">
+                                        <option value="no">No</option>
+                                        <option value="yes">Yes</option>
+                                        <option value="unknown">Unknown</option>
+                                    </select>
+                                </div>
+                                <div class="family-member">
+                                    <label>Siblings</label>
+                                    <select id="siblingHD">
+                                        <option value="no">No</option>
+                                        <option value="yes">Yes</option>
+                                        <option value="unknown">Unknown</option>
+                                    </select>
+                                </div>
+                                <div class="family-member">
+                                    <label>Grandparents</label>
+                                    <select id="grandparentHD">
+                                        <option value="no">No</option>
+                                        <option value="yes">Yes</option>
+                                        <option value="unknown">Unknown</option>
+                                    </select>
+                                </div>
+                                <div class="family-member">
+                                    <label>Aunts/Uncles</label>
+                                    <select id="auntUncleHD">
+                                        <option value="no">No</option>
+                                        <option value="yes">Yes</option>
+                                        <option value="unknown">Unknown</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="unknownParentAge">
+                                Parent's Age at HD Onset (if known)
+                                <div class="tooltip">
+                                    <i class="fas fa-info-circle info-icon"></i>
+                                    <span class="tooltiptext">Parent's age at onset can help estimate CAG repeat length through anticipation patterns.</span>
+                                </div>
+                            </label>
+                            <input type="number" id="unknownParentAge" min="0" max="100" placeholder="Enter age or leave blank">
+                        </div>
+                        
+                        <div class="warning-box">
+                            <h4><i class="fas fa-exclamation-triangle"></i> Genetic Testing Consideration</h4>
+                            <p>This assessment estimates risk based on family history. For definitive risk assessment, consider genetic counseling and testing.</p>
+                            <button class="secondary-button" style="margin-top: 10px;" onclick="showGeneticCounselingInfo()">
+                                <i class="fas fa-info-circle"></i> Learn About Genetic Testing
+                            </button>
+                        </div>
+                        
+                        <h3>Current Symptoms Assessment</h3>
+                        
+                        <div class="form-group">
+                            <label for="unknownSymptoms">
+                                Current Symptoms
+                            </label>
+                            <select id="unknownSymptoms">
+                                <option value="none">No symptoms</option>
+                                <option value="mild">Mild motor/cognitive symptoms</option>
+                                <option value="moderate">Moderate symptoms affecting daily life</option>
+                                <option value="severe">Severe symptoms requiring assistance</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="unknownMotorSymptoms">
+                                Motor Symptom Severity (0-10)
+                            </label>
+                            <div class="slider-container">
+                                <input type="range" min="0" max="10" value="2" class="slider" id="unknownMotorSymptoms">
+                                <div class="slider-value" id="unknownMotorValue">2</div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="unknownCognitiveSymptoms">
+                                Cognitive Symptom Severity (0-10)
+                            </label>
+                            <div class="slider-container">
+                                <input type="range" min="0" max="10" value="1" class="slider" id="unknownCognitiveSymptoms">
+                                <div class="slider-value" id="unknownCognitiveValue">1</div>
+                            </div>
+                        </div>
+                        
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="unknownDepression">
+                            <label for="unknownDepression">History of depression or anxiety</label>
+                        </div>
+                        
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="unknownSleepIssues">
+                            <label for="unknownSleepIssues">Sleep disturbances</label>
+                        </div>
+                        
+                        <button class="cta-button" id="calculateUnknownBtn">
+                            <i class="fas fa-calculator"></i> Calculate Risk Without CAG
+                        </button>
+                        
+                        <div style="font-size: 0.85rem; color: var(--gray); margin-top: 15px;">
+                            <i class="fas fa-shield-alt"></i> Your data is processed locally and never transmitted to servers.
+                        </div>
+                    </div>
+                    
+                    <div class="results-container">
+                        <div class="results-header">
+                            <div class="risk-circle risk-medium" id="unknownRiskCircle">
+                                <span id="unknownRiskPercentage">--%</span>
+                            </div>
+                            <h3 id="unknownRiskCategory">Complete assessment to see results</h3>
+                            <p id="unknownRiskDescription">Based on family history and clinical assessment</p>
+                        </div>
+                        
+                        <div class="risk-metrics">
+                            <div class="metric-card">
+                                <div class="metric-value" id="unknownLifetimeRisk">--%</div>
+                                <div class="metric-label">Estimated Lifetime Risk</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value" id="unknownGeneticRisk">--%</div>
+                                <div class="metric-label">Genetic Carrier Probability</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value" id="unknownOnsetProbability">--%</div>
+                                <div class="metric-label">Onset Probability by Age 60</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value" id="unknownTestingBenefit">High</div>
+                                <div class="metric-label">Testing Benefit Level</div>
+                            </div>
+                        </div>
+                        
+                        <div class="clinical-interpretation">
+                            <h4><i class="fas fa-family"></i> Family History Analysis</h4>
+                            <div id="unknownFamilyAnalysis">
+                                <p>Complete the family history section to receive risk analysis based on inheritance patterns.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="chart-container">
+                            <canvas id="unknownRiskChart"></canvas>
+                        </div>
+                        
+                        <div class="treatment-recs">
+                            <h3>Recommendations & Next Steps</h3>
+                            <div id="unknownRecommendations">
+                                <div class="rec-item">
+                                    <h4>Complete Assessment <span class="evidence-level">Required</span></h4>
+                                    <p>Fill in your family history and symptom information to receive personalized recommendations.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Data Sources Section -->
+    <section class="section data-sources" id="sources">
+        <div class="container">
+            <div class="section-title">
+                <h2>Evidence-Based Models</h2>
+                <p>Different models for known and unknown CAG status based on peer-reviewed research</p>
+            </div>
+            
+            <div class="sources-grid">
+                <div class="source-card">
+                    <h3>For Known CAG Status</h3>
+                    <p><strong>Langbehn Formula:</strong> Validated model using age and CAG repeats to predict diagnosis probability.</p>
+                    <div class="citation">Langbehn DR, et al. A new model for prediction of the age of onset and penetrance for Huntington's disease based on CAG length. Clin Genet. 2004.</div>
+                </div>
+                
+                <div class="source-card">
+                    <h3>For Unknown CAG Status</h3>
+                    <p><strong>Family History Models:</strong> Bayesian probability models based on family history and inheritance patterns.</p>
+                    <div class="citation">Harper PS. Practical Genetic Counselling. 7th ed. CRC Press; 2010. Risk calculation algorithms for autosomal dominant disorders.</div>
+                </div>
+                
+                <div class="source-card">
+                    <h3>Anticipation Models</h3>
+                    <p>Models estimating CAG repeat length based on parent's age at onset and anticipation patterns.</p>
+                    <div class="citation">Brinkman RR, et al. The likelihood of being affected with Huntington disease by a particular age, for a specific CAG size. Am J Hum Genet. 1997.</div>
+                </div>
+                
+                <div class="source-card">
+                    <h3>Bayesian Risk Assessment</h3>
+                    <p>Probability models combining family history, clinical symptoms, and epidemiological data.</p>
+                    <div class="citation">Newcombe RG. Two-sided confidence intervals for the single proportion: comparison of seven methods. Stat Med. 1998.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div>
+                    <div class="footer-logo">NeuroPrognos</div>
+                    <p>Dual-pathway HD risk assessment for both known and unknown genetic status.</p>
+                    <p style="margin-top: 20px; font-size: 0.9rem; color: #6c757d;">A TILT Initiative Research Platform</p>
+                </div>
+                
+                <div class="footer-links">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="https://hdsa.org/find-help/genetic-testing/" target="_blank">Genetic Testing Info</a></li>
+                        <li><a href="https://www.huntington-study-group.org" target="_blank">Clinical Trials</a></li>
+                        <li><a href="https://www.geneticcounselingtoolkit.com" target="_blank">Genetic Counseling</a></li>
+                        <li><a href="https://tiltinitiative.org" target="_blank">TILT Initiative</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-contact">
+                    <h4>Disclaimer</h4>
+                    <p><i class="fas fa-exclamation-triangle"></i> This tool provides estimates only. For medical decisions, consult healthcare providers and genetic counselors.</p>
+                    <p style="margin-top: 15px; font-size: 0.9rem;">
+                        Not a substitute for clinical genetic testing or professional medical advice.
+                    </p>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2023 NeuroPrognos. A TILT Initiative Project. Dual-pathway HD risk assessment system. v2.2.0</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Genetic Counseling Modal -->
+    <div id="geneticCounselingModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 2000; align-items: center; justify-content: center;">
+        <div style="background: white; padding: 30px; border-radius: var(--border-radius); max-width: 500px; margin: 20px; max-height: 80vh; overflow-y: auto;">
+            <h3 style="color: var(--primary); margin-bottom: 15px;"><i class="fas fa-comments-medical"></i> Genetic Counseling Information</h3>
+            <p>Genetic counseling is recommended before and after genetic testing for Huntington's Disease. Key considerations:</p>
+            <ul style="margin: 15px 0 15px 20px;">
+                <li>Understanding implications of positive/negative results</li>
+                <li>Psychological preparation and support</li>
+                <li>Family planning considerations</li>
+                <li>Insurance and discrimination protections</li>
+                <li>Long-term follow-up planning</li>
+            </ul>
+            <p>To find a genetic counselor specializing in HD:</p>
+            <ul style="margin: 15px 0 15px 20px;">
+                <li>Contact the Huntington's Disease Society of America</li>
+                <li>Ask your neurologist for referrals</li>
+                <li>Use the National Society of Genetic Counselors directory</li>
+            </ul>
+            <button class="secondary-button" onclick="closeGeneticCounselingInfo()" style="margin-top: 15px;">
+                Close
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // Tab Switching
+        const tabKnownBtn = document.getElementById('tabKnownBtn');
+        const tabUnknownBtn = document.getElementById('tabUnknownBtn');
+        const tabKnown = document.getElementById('tabKnown');
+        const tabUnknown = document.getElementById('tabUnknown');
+        const tabDescription = document.getElementById('tabDescription');
+        
+        tabKnownBtn.addEventListener('click', () => {
+            tabKnownBtn.classList.add('active');
+            tabUnknownBtn.classList.remove('active');
+            tabKnown.classList.add('active');
+            tabUnknown.classList.remove('active');
+            tabDescription.textContent = 'For individuals with confirmed genetic testing results';
+        });
+        
+        tabUnknownBtn.addEventListener('click', () => {
+            tabUnknownBtn.classList.add('active');
+            tabKnownBtn.classList.remove('active');
+            tabUnknown.classList.add('active');
+            tabKnown.classList.remove('active');
+            tabDescription.textContent = 'For individuals with family history or unknown genetic status';
+        });
+        
+        // Initialize Charts
+        let knownChart, unknownChart;
+        
+        function initializeCharts() {
+            // Known CAG Chart
+            const knownCtx = document.getElementById('knownProgressionChart').getContext('2d');
+            knownChart = new Chart(knownCtx, {
+                type: 'line',
+                data: {
+                    labels: ['Current', '+2', '+4', '+6', '+8', '+10 years'],
+                    datasets: [{
+                        label: 'Motor Score',
+                        data: [5, 8, 12, 18, 25, 34],
+                        borderColor: 'rgb(255, 107, 107)',
+                        backgroundColor: 'rgba(255, 107, 107, 0.1)',
+                        tension: 0.3
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { position: 'top' }
+                    },
+                    scales: {
+                        y: { beginAtZero: true }
+                    }
+                }
+            });
+            
+            // Unknown CAG Chart
+            const unknownCtx = document.getElementById('unknownRiskChart').getContext('2d');
+            unknownChart = new Chart(unknownCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['No Family Hx', '2nd Degree Relative', 'Parent Affected', 'Parent + Sibling'],
+                    datasets: [{
+                        label: 'Carrier Probability',
+                        data: [0.1, 25, 50, 75],
+                        backgroundColor: [
+                            'rgba(40, 167, 69, 0.7)',
+                            'rgba(255, 193, 7, 0.7)',
+                            'rgba(255, 107, 107, 0.7)',
+                            'rgba(220, 53, 69, 0.7)'
+                        ],
+                        borderColor: [
+                            'rgb(40, 167, 69)',
+                            'rgb(255, 193, 7)',
+                            'rgb(255, 107, 107)',
+                            'rgb(220, 53, 69)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            title: { display: true, text: 'Probability (%)' },
+                            max: 100
+                        }
+                    }
+                }
+            });
+        }
+        
+        // Slider Updates for Known CAG
+        const knownMotorSlider = document.getElementById('knownMotorScore');
+        const knownMotorValue = document.getElementById('knownMotorValue');
+        const knownCognitiveSlider = document.getElementById('knownCognitiveScore');
+        const knownCognitiveValue = document.getElementById('knownCognitiveValue');
+        
+        knownMotorSlider.addEventListener('input', () => {
+            knownMotorValue.textContent = knownMotorSlider.value;
+        });
+        
+        knownCognitiveSlider.addEventListener('input', () => {
+            knownCognitiveValue.textContent = parseFloat(knownCognitiveSlider.value).toFixed(1);
+        });
+        
+        // Slider Updates for Unknown CAG
+        const unknownMotorSlider = document.getElementById('unknownMotorSymptoms');
+        const unknownMotorValue = document.getElementById('unknownMotorValue');
+        const unknownCognitiveSlider = document.getElementById('unknownCognitiveSymptoms');
+        const unknownCognitiveValue = document.getElementById('unknownCognitiveValue');
+        
+        unknownMotorSlider.addEventListener('input', () => {
+            unknownMotorValue.textContent = unknownMotorSlider.value;
+        });
+        
+        unknownCognitiveSlider.addEventListener('input', () => {
+            unknownCognitiveValue.textContent = unknownCognitiveSlider.value;
+        });
+        
+        // ============ KNOWN CAG CALCULATIONS ============
+        
+        // Langbehn Formula for known CAG
+        function calculateLangbehnProbability(age, cag, years) {
+            if (cag < 36) return 0;
+            
+            const k = 0.069;
+            const mu = 0.000086 * Math.pow((cag - 44.66), 3);
+            const sigma = 0.0000006 * Math.pow((cag - 21.6), 4);
+            
+            const z = (Math.log(years) - mu) / sigma;
+            const probability = 1 / (1 + Math.exp(-k * (age - z)));
+            
+            return Math.min(0.99, Math.max(0.01, probability));
+        }
+        
+        // Calculate CAP score
+        function calculateCAPScore(age, cag) {
+            return (age * cag) / 1000;
+        }
+        
+        // Calculate expected onset age
+        function calculateExpectedOnset(cag) {
+            if (cag < 36) return null;
+            const expectedOnset = 21.54 + Math.exp(9.556 - 0.146 * cag);
+            return Math.round(expectedOnset);
+        }
+        
+        // Disease Burden Score
+        function calculateDiseaseBurden(age, cag) {
+            return age * (cag - 35.5);
+        }
+        
+        // Generate progression for known CAG
+        function generateKnownProgression(currentMotor, cag, age, diagnosisStatus) {
+            const progression = [parseInt(currentMotor)];
+            let annualIncrease;
+            
+            if (diagnosisStatus === 'premanifest' || diagnosisStatus === 'prodromal') {
+                annualIncrease = 0.5 + (cag - 40) * 0.1;
+            } else {
+                annualIncrease = 2 + (cag - 40) * 0.15;
+            }
+            
+            for (let i = 1; i <= 5; i++) {
+                const years = i * 2;
+                let increase = annualIncrease * years;
+                if (years > 5) increase *= 1.2;
+                progression.push(Math.min(124, Math.round(parseInt(currentMotor) + increase)));
+            }
+            
+            return progression;
+        }
+        
+        // Calculate Known CAG Risk
+        function calculateKnownRisk() {
+            const age = parseInt(document.getElementById('knownAge').value) || 35;
+            const cag = parseInt(document.getElementById('knownCAG').value) || 42;
+            const diagnosisStatus = document.getElementById('knownDiagnosisStatus').value;
+            const motorScore = parseInt(knownMotorSlider.value) || 5;
+            
+            // Validate CAG
+            if (cag < 36) {
+                alert('CAG repeats <36 are in the normal range. If you have symptoms, consult a neurologist for alternative diagnoses.');
+                return;
+            }
+            
+            // Calculate probabilities
+            const fiveYearRisk = calculateLangbehnProbability(age, cag, 5) * 100;
+            const tenYearRisk = calculateLangbehnProbability(age, cag, 10) * 100;
+            const expectedOnset = calculateExpectedOnset(cag);
+            const capScore = calculateCAPScore(age, cag);
+            const diseaseBurden = calculateDiseaseBurden(age, cag);
+            
+            // Overall risk percentage
+            let overallRisk = fiveYearRisk;
+            if (diagnosisStatus !== 'premanifest') overallRisk += 20;
+            overallRisk += Math.min(30, motorScore * 0.5);
+            overallRisk = Math.min(99, Math.max(1, overallRisk));
+            
+            // Update display
+            document.getElementById('knownRiskPercentage').textContent = Math.round(overallRisk) + '%';
+            document.getElementById('knownFiveYearRisk').textContent = Math.round(fiveYearRisk) + '%';
+            document.getElementById('knownTenYearRisk').textContent = Math.round(tenYearRisk) + '%';
+            document.getElementById('knownExpectedOnset').textContent = expectedOnset ? expectedOnset + ' yrs' : 'N/A';
+            document.getElementById('knownCAPScore').textContent = capScore.toFixed(2);
+            
+            // Risk category
+            let riskCategory, riskColor;
+            if (overallRisk < 30) {
+                riskCategory = "Low Risk";
+                riskColor = "risk-low";
+            } else if (overallRisk < 60) {
+                riskCategory = "Medium Risk";
+                riskColor = "risk-medium";
+            } else {
+                riskCategory = "High Risk";
+                riskColor = "risk-high";
+            }
+            
+            document.getElementById('knownRiskCategory').textContent = riskCategory;
+            document.getElementById('knownRiskCircle').className = 'risk-circle ' + riskColor;
+            document.getElementById('knownRiskDescription').textContent = 
+                `CAG: ${cag} repeats | CAP: ${capScore.toFixed(2)} | DBS: ${diseaseBurden.toFixed(1)}`;
+            
+            // Clinical interpretation
+            const interpretation = `
+                <p><strong>Genetic Profile:</strong> CAG${cag} - ${cag >= 40 ? 'Full penetrance' : 'Reduced penetrance'} HD.</p>
+                <p><strong>Short-term Risk:</strong> ${Math.round(fiveYearRisk)}% probability of diagnosis within 5 years.</p>
+                <p><strong>Expected Onset:</strong> ${expectedOnset} years (population average for CAG${cag}).</p>
+                <p><strong>Disease Burden:</strong> ${diseaseBurden.toFixed(1)} - ${diseaseBurden > 400 ? 'Very High' : diseaseBurden > 320 ? 'High' : diseaseBurden > 250 ? 'Medium' : 'Low'} burden.</p>
+            `;
+            document.getElementById('knownClinicalInterpretation').innerHTML = interpretation;
+            
+            // Update chart
+            const progression = generateKnownProgression(motorScore, cag, age, diagnosisStatus);
+            knownChart.data.datasets[0].data = progression;
+            knownChart.update();
+            
+            // Get recommendations
+            const recommendations = getKnownRecommendations(cag, age, diagnosisStatus, motorScore);
+            displayKnownRecommendations(recommendations);
+        }
+        
+        // ============ UNKNOWN CAG CALCULATIONS ============
+        
+        // Calculate genetic carrier probability based on family history
+        function calculateCarrierProbability(parentHD, siblingHD, grandparentHD, auntUncleHD) {
+            let probability = 0;
+            
+            // Bayesian probability calculations
+            if (parentHD === 'yes') {
+                probability = 50; // 50% chance from affected parent
+                
+                // Adjust based on other family members
+                if (siblingHD === 'yes') probability = 75;
+                if (grandparentHD === 'yes') probability = Math.max(probability, 25);
+                if (auntUncleHD === 'yes') probability = Math.max(probability, 25);
+            } else if (parentHD === 'unknown') {
+                probability = 25; // Intermediate risk
+                if (siblingHD === 'yes') probability = 50;
+                if (grandparentHD === 'yes') probability = 12.5;
+                if (auntUncleHD === 'yes') probability = 12.5;
+            } else {
+                // Parent negative
+                if (siblingHD === 'yes') probability = 25;
+                if (grandparentHD === 'yes') probability = 6.25;
+                if (auntUncleHD === 'yes') probability = 6.25;
+            }
+            
+            return probability;
+        }
+        
+        // Estimate CAG based on parent's age at onset
+        function estimateCAGFromParentOnset(parentOnsetAge) {
+            if (!parentOnsetAge) return null;
+            
+            // Inverse of Langbehn formula to estimate CAG from onset age
+            // This is a simplified estimation
+            let estimatedCAG;
+            if (parentOnsetAge < 30) estimatedCAG = 45;
+            else if (parentOnsetAge < 40) estimatedCAG = 43;
+            else if (parentOnsetAge < 50) estimatedCAG = 41;
+            else if (parentOnsetAge < 60) estimatedCAG = 39;
+            else estimatedCAG = 37;
+            
+            return estimatedCAG;
+        }
+        
+        // Calculate onset probability by age
+        function calculateOnsetProbabilityByAge(age, carrierProbability, parentOnsetAge) {
+            if (carrierProbability < 10) return 0;
+            
+            const estimatedCAG = parentOnsetAge ? estimateCAGFromParentOnset(parentOnsetAge) : 42;
+            const baseRisk = calculateLangbehnProbability(age, estimatedCAG, 60 - age) * 100;
+            
+            return (carrierProbability / 100) * baseRisk;
+        }
+        
+        // Calculate Unknown CAG Risk
+        function calculateUnknownRisk() {
+            const age = parseInt(document.getElementById('unknownAge').value) || 35;
+            const gender = document.getElementById('unknownGender').value;
+            const parentHD = document.getElementById('parentHD').value;
+            const siblingHD = document.getElementById('siblingHD').value;
+            const grandparentHD = document.getElementById('grandparentHD').value;
+            const auntUncleHD = document.getElementById('auntUncleHD').value;
+            const parentOnsetAge = document.getElementById('unknownParentAge').value ? 
+                parseInt(document.getElementById('unknownParentAge').value) : null;
+            const symptoms = document.getElementById('unknownSymptoms').value;
+            const motorSymptoms = parseInt(unknownMotorSlider.value) || 2;
+            const cognitiveSymptoms = parseInt(unknownCognitiveSlider.value) || 1;
+            const depression = document.getElementById('unknownDepression').checked;
+            const sleepIssues = document.getElementById('unknownSleepIssues').checked;
+            
+            // Calculate carrier probability
+            const carrierProbability = calculateCarrierProbability(parentHD, siblingHD, grandparentHD, auntUncleHD);
+            
+            // Calculate lifetime risk (carrier probability adjusted for penetrance)
+            const lifetimeRisk = carrierProbability * 0.9; // 90% penetrance for full mutation
+            
+            // Calculate onset probability by age 60
+            const onsetProbability = calculateOnsetProbabilityByAge(age, carrierProbability, parentOnsetAge);
+            
+            // Overall risk score
+            let overallRisk = carrierProbability;
+            
+            // Adjust based on symptoms
+            if (symptoms !== 'none') overallRisk += 20;
+            overallRisk += motorSymptoms * 2;
+            overallRisk += cognitiveSymptoms * 1.5;
+            if (depression) overallRisk += 5;
+            if (sleepIssues) overallRisk += 3;
+            
+            overallRisk = Math.min(99, overallRisk);
+            
+            // Update display
+            document.getElementById('unknownRiskPercentage').textContent = Math.round(overallRisk) + '%';
+            document.getElementById('unknownLifetimeRisk').textContent = Math.round(lifetimeRisk) + '%';
+            document.getElementById('unknownGeneticRisk').textContent = Math.round(carrierProbability) + '%';
+            document.getElementById('unknownOnsetProbability').textContent = Math.round(onsetProbability) + '%';
+            
+            // Testing benefit level
+            let testingBenefit = 'Low';
+            if (carrierProbability > 50) testingBenefit = 'Very High';
+            else if (carrierProbability > 25) testingBenefit = 'High';
+            else if (carrierProbability > 10) testingBenefit = 'Moderate';
+            document.getElementById('unknownTestingBenefit').textContent = testingBenefit;
+            
+            // Risk category
+            let riskCategory, riskColor;
+            if (overallRisk < 25) {
+                riskCategory = "Low Risk";
+                riskColor = "risk-low";
+            } else if (overallRisk < 50) {
+                riskCategory = "Medium Risk";
+                riskColor = "risk-medium";
+            } else {
+                riskCategory = "High Risk";
+                riskColor = "risk-high";
+            }
+            
+            document.getElementById('unknownRiskCategory').textContent = riskCategory;
+            document.getElementById('unknownRiskCircle').className = 'risk-circle ' + riskColor;
+            
+            // Family analysis
+            const familyAnalysis = generateFamilyAnalysis(parentHD, siblingHD, grandparentHD, auntUncleHD, parentOnsetAge);
+            document.getElementById('unknownFamilyAnalysis').innerHTML = familyAnalysis;
+            
+            // Update chart
+            updateUnknownChart(carrierProbability, parentHD, siblingHD);
+            
+            // Get recommendations
+            const recommendations = getUnknownRecommendations(carrierProbability, symptoms, testingBenefit);
+            displayUnknownRecommendations(recommendations);
+        }
+        
+        function generateFamilyAnalysis(parentHD, siblingHD, grandparentHD, auntUncleHD, parentOnsetAge) {
+            let analysis = '<p>';
+            
+            if (parentHD === 'yes') {
+                analysis += '<strong>Autosomal Dominant Inheritance:</strong> 50% chance of inheriting the HD gene from an affected parent. ';
+            } else if (parentHD === 'unknown') {
+                analysis += '<strong>Parent Status Unknown:</strong> Risk depends on whether parent carries the mutation. ';
+            } else {
+                analysis += '<strong>Parent Not Affected:</strong> Risk comes from other family members or new mutation. ';
+            }
+            
+            if (siblingHD === 'yes') {
+                analysis += 'Affected sibling increases probability that parent carries the gene. ';
+            }
+            
+            if (parentOnsetAge) {
+                analysis += `Parent's onset at age ${parentOnsetAge} suggests ${estimateCAGFromParentOnset(parentOnsetAge)} CAG repeats (estimated). `;
+            }
+            
+            analysis += '</p>';
+            
+            return analysis;
+        }
+        
+        function updateUnknownChart(carrierProbability, parentHD, siblingHD) {
+            // Update chart data based on family history
+            let labels = ['General Population', 'Distant Relative', 'Close Relative', 'Affected Parent'];
+            let data = [0.1, 12.5, 25, 50];
+            
+            if (parentHD === 'yes' && siblingHD === 'yes') {
+                labels = ['General', 'Distant Relative', 'Parent Only', 'Parent + Sibling'];
+                data = [0.1, 12.5, 50, 75];
+            } else if (parentHD === 'yes') {
+                labels = ['General', 'Distant Relative', 'Close Relative', 'Affected Parent'];
+                data = [0.1, 12.5, 25, 50];
+            } else if (parentHD === 'unknown') {
+                labels = ['General', 'Possible Carrier', 'Probable Carrier', 'High Probability'];
+                data = [0.1, 25, 50, 75];
+            }
+            
+            unknownChart.data.labels = labels;
+            unknownChart.data.datasets[0].data = data;
+            unknownChart.update();
+        }
+        
+        // ============ RECOMMENDATIONS ============
+        
+        function getKnownRecommendations(cag, age, diagnosisStatus, motorScore) {
+            const recommendations = [];
+            
+            // Genetic counseling for premanifest
+            if (diagnosisStatus === 'premanifest' || diagnosisStatus === 'prodromal') {
+                recommendations.push({
+                    title: 'Regular Monitoring',
+                    description: 'Annual neurological exams with UHDRS assessment. Consider participation in clinical trials.',
+                    evidence: 'A'
+                });
+            }
+            
+            // Clinical trial eligibility
+            if (cag >= 40 && diagnosisStatus === 'premanifest') {
+                recommendations.push({
+                    title: 'Clinical Trial Consideration',
+                    description: 'You may be eligible for disease-modifying therapy trials targeting mutant huntingtin.',
+                    evidence: 'A'
+                });
+            }
+            
+            // Symptom management
+            if (motorScore >= 10) {
+                recommendations.push({
+                    title: 'Symptom Management',
+                    description: 'Consider tetrabenazine or deutetrabenazine for chorea management.',
+                    evidence: 'A'
+                });
+            }
+            
+            // Family planning
+            if (age < 45) {
+                recommendations.push({
+                    title: 'Reproductive Options',
+                    description: 'Discuss PGD (preimplantation genetic diagnosis) and prenatal testing options.',
+                    evidence: 'B'
+                });
+            }
+            
+            return recommendations;
+        }
+        
+        function getUnknownRecommendations(carrierProbability, symptoms, testingBenefit) {
+            const recommendations = [];
+            
+            // Genetic testing recommendation
+            if (carrierProbability > 10) {
+                recommendations.push({
+                    title: 'Genetic Counseling',
+                    description: `Based on ${Math.round(carrierProbability)}% carrier probability, genetic counseling is strongly recommended.`,
+                    evidence: 'A'
+                });
+            }
+            
+            if (testingBenefit === 'Very High' || testingBenefit === 'High') {
+                recommendations.push({
+                    title: 'Consider Genetic Testing',
+                    description: 'High probability of being a gene carrier. Testing can provide certainty for life planning.',
+                    evidence: 'A'
+                });
+            }
+            
+            // Symptom management
+            if (symptoms !== 'none') {
+                recommendations.push({
+                    title: 'Neurological Evaluation',
+                    description: 'Schedule evaluation with a movement disorder specialist for symptom assessment.',
+                    evidence: 'B'
+                });
+            }
+            
+            // Psychological support
+            recommendations.push({
+                title: 'Psychological Support',
+                description: 'Consider counseling or support groups for coping with HD risk.',
+                evidence: 'B'
+            });
+            
+            return recommendations;
+        }
+        
+        function displayKnownRecommendations(recommendations) {
+            const container = document.getElementById('knownRecommendations');
+            container.innerHTML = '';
+            
+            recommendations.forEach(rec => {
+                const div = document.createElement('div');
+                div.className = 'rec-item';
+                div.innerHTML = `
+                    <h4>${rec.title} <span class="evidence-level evidence-${rec.evidence.toLowerCase()}">Level ${rec.evidence}</span></h4>
+                    <p>${rec.description}</p>
+                `;
+                container.appendChild(div);
+            });
+            
+            if (recommendations.length === 0) {
+                container.innerHTML = '<div class="rec-item"><h4>No Specific Recommendations</h4><p>Continue regular health maintenance and monitoring.</p></div>';
+            }
+        }
+        
+        function displayUnknownRecommendations(recommendations) {
+            const container = document.getElementById('unknownRecommendations');
+            container.innerHTML = '';
+            
+            recommendations.forEach(rec => {
+                const div = document.createElement('div');
+                div.className = 'rec-item';
+                div.innerHTML = `
+                    <h4>${rec.title} <span class="evidence-level evidence-${rec.evidence.toLowerCase()}">Level ${rec.evidence}</span></h4>
+                    <p>${rec.description}</p>
+                `;
+                container.appendChild(div);
+            });
+        }
+        
+        // ============ MODAL FUNCTIONS ============
+        
+        function showGeneticCounselingInfo() {
+            document.getElementById('geneticCounselingModal').style.display = 'flex';
+        }
+        
+        function closeGeneticCounselingInfo() {
+            document.getElementById('geneticCounselingModal').style.display = 'none';
+        }
+        
+        // Close modal when clicking outside
+        document.getElementById('geneticCounselingModal').addEventListener('click', function(e) {
+            if (e.target === this) closeGeneticCounselingInfo();
+        });
+        
+        // ============ INITIALIZATION ============
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeCharts();
+            
+            // Set up calculate buttons
+            document.getElementById('calculateKnownBtn').addEventListener('click', calculateKnownRisk);
+            document.getElementById('calculateUnknownBtn').addEventListener('click', calculateUnknownRisk);
+            
+            // Auto-calculate with default values
+            setTimeout(() => {
+                calculateKnownRisk();
+                calculateUnknownRisk();
+            }, 500);
+        });
+    </script>
+</body>
+</html>
