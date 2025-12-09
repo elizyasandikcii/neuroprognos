@@ -76,7 +76,7 @@
         nav ul {
             display: flex;
             list-style: none;
-            gap: 30px;
+            gap: 25px;
         }
 
         nav a {
@@ -86,6 +86,7 @@
             transition: var(--transition);
             padding: 5px 0;
             position: relative;
+            white-space: nowrap;
         }
 
         nav a:hover {
@@ -142,7 +143,7 @@
         /* Calculator Selector */
         .calculator-selector {
             text-align: center;
-            margin: 40px 0;
+            margin: 40px 0 20px;
         }
 
         .selector-container {
@@ -165,6 +166,7 @@
             display: flex;
             align-items: center;
             gap: 8px;
+            white-space: nowrap;
         }
 
         .selector-btn.active {
@@ -191,6 +193,15 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
+        /* Form Steps */
+        .form-step {
+            display: none;
+        }
+
+        .form-step.active {
+            display: block;
+        }
+
         /* Hero Section */
         .hero {
             padding: 80px 0;
@@ -206,7 +217,7 @@
         }
 
         .hero h1 {
-            font-size: 3rem;
+            font-size: 2.8rem;
             margin-bottom: 20px;
             color: var(--primary);
             line-height: 1.2;
@@ -264,7 +275,7 @@
         }
 
         .section-title h2 {
-            font-size: 2.5rem;
+            font-size: 2.3rem;
             color: var(--primary);
             margin-bottom: 15px;
         }
@@ -284,11 +295,13 @@
             box-shadow: var(--shadow);
             padding: 40px;
             margin-top: 20px;
+            min-height: 600px;
         }
 
         @media (max-width: 992px) {
             .calculator-container {
                 grid-template-columns: 1fr;
+                min-height: auto;
             }
         }
 
@@ -296,6 +309,23 @@
             display: flex;
             flex-direction: column;
             gap: 25px;
+            overflow-y: auto;
+            max-height: 800px;
+            padding-right: 10px;
+        }
+
+        .calculator-form::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .calculator-form::-webkit-scrollbar-track {
+            background: var(--light-gray);
+            border-radius: 3px;
+        }
+
+        .calculator-form::-webkit-scrollbar-thumb {
+            background: var(--secondary);
+            border-radius: 3px;
         }
 
         .calculator-form h3 {
@@ -368,7 +398,7 @@
             box-shadow: 0 0 0 3px rgba(74, 159, 213, 0.2);
         }
 
-        /* Symptom Selection Styles */
+        /* Symptom Selection Styles - FIXED */
         .symptom-category {
             background: var(--light-gray);
             border-radius: var(--border-radius);
@@ -386,8 +416,8 @@
 
         .symptom-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 12px;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 10px;
         }
 
         .symptom-item {
@@ -400,6 +430,7 @@
             cursor: pointer;
             transition: var(--transition);
             border: 2px solid transparent;
+            position: relative;
         }
 
         .symptom-item:hover {
@@ -415,7 +446,45 @@
         .symptom-item input[type="checkbox"] {
             width: 18px;
             height: 18px;
-            accent-color: var(--primary);
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+
+        /* Custom checkbox styling */
+        .symptom-item input[type="checkbox"] {
+            appearance: none;
+            -webkit-appearance: none;
+            width: 18px;
+            height: 18px;
+            border: 2px solid var(--gray);
+            border-radius: 3px;
+            background: white;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .symptom-item input[type="checkbox"]:checked {
+            background-color: var(--primary);
+            border-color: var(--primary);
+        }
+
+        .symptom-item input[type="checkbox"]:checked::after {
+            content: '✓';
+            position: absolute;
+            color: white;
+            font-size: 14px;
+            font-weight: bold;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .symptom-item label {
+            cursor: pointer;
+            flex-grow: 1;
+            margin: 0;
+            font-weight: normal;
+            user-select: none;
         }
 
         .symptom-severity {
@@ -423,19 +492,25 @@
             display: flex;
             align-items: center;
             gap: 5px;
+            flex-shrink: 0;
         }
 
         .severity-dot {
-            width: 12px;
-            height: 12px;
+            width: 14px;
+            height: 14px;
             border-radius: 50%;
             background: var(--light-gray);
             cursor: pointer;
             transition: var(--transition);
+            border: 2px solid transparent;
+        }
+
+        .severity-dot:hover {
+            transform: scale(1.2);
         }
 
         .severity-dot.active {
-            background: var(--primary);
+            border-color: var(--dark);
         }
 
         .severity-dot.mild {
@@ -492,7 +567,7 @@
 
         .family-history-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
             gap: 15px;
             margin-top: 10px;
         }
@@ -514,6 +589,22 @@
             padding: 30px;
             display: flex;
             flex-direction: column;
+            overflow-y: auto;
+            max-height: 800px;
+        }
+
+        .results-container::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .results-container::-webkit-scrollbar-track {
+            background: var(--light-gray);
+            border-radius: 3px;
+        }
+
+        .results-container::-webkit-scrollbar-thumb {
+            background: var(--secondary);
+            border-radius: 3px;
         }
 
         .results-header {
@@ -778,6 +869,91 @@
             color: var(--primary);
         }
 
+        /* Info Page Styles */
+        .info-page {
+            padding: 80px 0;
+            background: var(--light);
+        }
+
+        .info-content {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .info-section {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 40px;
+            margin-bottom: 30px;
+            box-shadow: var(--shadow);
+        }
+
+        .info-section h2 {
+            color: var(--primary);
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--light-gray);
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin: 30px 0;
+        }
+
+        .info-card {
+            background: var(--light-gray);
+            padding: 25px;
+            border-radius: var(--border-radius);
+            transition: var(--transition);
+        }
+
+        .info-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow);
+        }
+
+        .info-card h3 {
+            color: var(--primary);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .info-card h3 i {
+            font-size: 1.5rem;
+        }
+
+        .assessment-methods {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .method-item {
+            display: flex;
+            gap: 20px;
+            align-items: flex-start;
+            padding: 20px;
+            background: var(--light-gray);
+            border-radius: var(--border-radius);
+        }
+
+        .method-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            flex-shrink: 0;
+        }
+
         /* Data Sources Section */
         .data-sources {
             background: var(--light-gray);
@@ -786,7 +962,7 @@
 
         .sources-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 30px;
             margin-top: 40px;
         }
@@ -918,6 +1094,48 @@
             .progress-steps:before {
                 display: none;
             }
+            
+            .info-section {
+                padding: 25px;
+            }
+            
+            .method-item {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+        }
+
+        /* Mobile Menu */
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--primary);
+            cursor: pointer;
+        }
+
+        @media (max-width: 768px) {
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            nav ul {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: white;
+                flex-direction: column;
+                padding: 20px;
+                box-shadow: var(--shadow);
+            }
+            
+            nav ul.active {
+                display: flex;
+            }
         }
     </style>
 </head>
@@ -930,12 +1148,16 @@
                     <i class="fas fa-brain logo-icon"></i>
                     <span>NeuroPrognos</span>
                 </div>
+                <button class="mobile-menu-btn" id="mobileMenuBtn">
+                    <i class="fas fa-bars"></i>
+                </button>
                 <nav>
-                    <ul>
+                    <ul id="navMenu">
                         <li><a href="#home" class="active">Home</a></li>
                         <li><a href="#calculator">Risk Calculator</a></li>
+                        <li><a href="#what-is-hd">What is HD</a></li>
                         <li><a href="#sources">Data Sources</a></li>
-                        <li><a href="#about">About HD</a></li>
+                        <li><a href="#about">About</a></li>
                         <li><a href="#resources">Resources</a></li>
                     </ul>
                 </nav>
@@ -986,19 +1208,19 @@
             <!-- Known CAG Repeat Tab -->
             <div class="calculator-tab active" id="tabKnown">
                 <div class="progress-steps">
-                    <div class="step active" id="step1Known">
+                    <div class="step active" id="step1Known" onclick="goToStep('known', 1)">
                         <div class="step-number">1</div>
                         <div class="step-label">Genetic Info</div>
                     </div>
-                    <div class="step" id="step2Known">
+                    <div class="step" id="step2Known" onclick="goToStep('known', 2)">
                         <div class="step-number">2</div>
                         <div class="step-label">Motor Symptoms</div>
                     </div>
-                    <div class="step" id="step3Known">
+                    <div class="step" id="step3Known" onclick="goToStep('known', 3)">
                         <div class="step-number">3</div>
                         <div class="step-label">Cognitive Symptoms</div>
                     </div>
-                    <div class="step" id="step4Known">
+                    <div class="step" id="step4Known" onclick="goToStep('known', 4)">
                         <div class="step-number">4</div>
                         <div class="step-label">Psychiatric Symptoms</div>
                     </div>
@@ -1047,19 +1269,25 @@
                                         <label for="choreaMild">Mild chorea</label>
                                         <div class="symptom-severity">
                                             <div class="severity-dot mild active" data-severity="mild"></div>
+                                            <div class="severity-dot moderate" data-severity="moderate"></div>
+                                            <div class="severity-dot severe" data-severity="severe"></div>
                                         </div>
                                     </div>
                                     <div class="symptom-item" data-symptom="chorea-moderate" data-category="motor">
                                         <input type="checkbox" id="choreaModerate">
                                         <label for="choreaModerate">Moderate chorea</label>
                                         <div class="symptom-severity">
+                                            <div class="severity-dot mild" data-severity="mild"></div>
                                             <div class="severity-dot moderate active" data-severity="moderate"></div>
+                                            <div class="severity-dot severe" data-severity="severe"></div>
                                         </div>
                                     </div>
                                     <div class="symptom-item" data-symptom="chorea-severe" data-category="motor">
                                         <input type="checkbox" id="choreaSevere">
                                         <label for="choreaSevere">Severe chorea</label>
                                         <div class="symptom-severity">
+                                            <div class="severity-dot mild" data-severity="mild"></div>
+                                            <div class="severity-dot moderate" data-severity="moderate"></div>
                                             <div class="severity-dot severe active" data-severity="severe"></div>
                                         </div>
                                     </div>
@@ -1073,27 +1301,27 @@
                                         <input type="checkbox" id="dystonia">
                                         <label for="dystonia">Dystonia</label>
                                         <div class="symptom-severity">
-                                            <div class="severity-dot" data-severity="mild"></div>
-                                            <div class="severity-dot" data-severity="moderate"></div>
-                                            <div class="severity-dot" data-severity="severe"></div>
+                                            <div class="severity-dot mild active" data-severity="mild"></div>
+                                            <div class="severity-dot moderate" data-severity="moderate"></div>
+                                            <div class="severity-dot severe" data-severity="severe"></div>
                                         </div>
                                     </div>
                                     <div class="symptom-item" data-symptom="rigidity" data-category="motor">
                                         <input type="checkbox" id="rigidity">
                                         <label for="rigidity">Muscle rigidity</label>
                                         <div class="symptom-severity">
-                                            <div class="severity-dot" data-severity="mild"></div>
-                                            <div class="severity-dot" data-severity="moderate"></div>
-                                            <div class="severity-dot" data-severity="severe"></div>
+                                            <div class="severity-dot mild active" data-severity="mild"></div>
+                                            <div class="severity-dot moderate" data-severity="moderate"></div>
+                                            <div class="severity-dot severe" data-severity="severe"></div>
                                         </div>
                                     </div>
                                     <div class="symptom-item" data-symptom="bradykinesia" data-category="motor">
                                         <input type="checkbox" id="bradykinesia">
                                         <label for="bradykinesia">Slowed movements</label>
                                         <div class="symptom-severity">
-                                            <div class="severity-dot" data-severity="mild"></div>
-                                            <div class="severity-dot" data-severity="moderate"></div>
-                                            <div class="severity-dot" data-severity="severe"></div>
+                                            <div class="severity-dot mild active" data-severity="mild"></div>
+                                            <div class="severity-dot moderate" data-severity="moderate"></div>
+                                            <div class="severity-dot severe" data-severity="severe"></div>
                                         </div>
                                     </div>
                                 </div>
@@ -1106,27 +1334,27 @@
                                         <input type="checkbox" id="gaitProblems">
                                         <label for="gaitProblems">Gait problems</label>
                                         <div class="symptom-severity">
-                                            <div class="severity-dot" data-severity="mild"></div>
-                                            <div class="severity-dot" data-severity="moderate"></div>
-                                            <div class="severity-dot" data-severity="severe"></div>
+                                            <div class="severity-dot mild active" data-severity="mild"></div>
+                                            <div class="severity-dot moderate" data-severity="moderate"></div>
+                                            <div class="severity-dot severe" data-severity="severe"></div>
                                         </div>
                                     </div>
                                     <div class="symptom-item" data-symptom="balance-issues" data-category="motor">
                                         <input type="checkbox" id="balanceIssues">
                                         <label for="balanceIssues">Balance issues</label>
                                         <div class="symptom-severity">
-                                            <div class="severity-dot" data-severity="mild"></div>
-                                            <div class="severity-dot" data-severity="moderate"></div>
-                                            <div class="severity-dot" data-severity="severe"></div>
+                                            <div class="severity-dot mild active" data-severity="mild"></div>
+                                            <div class="severity-dot moderate" data-severity="moderate"></div>
+                                            <div class="severity-dot severe" data-severity="severe"></div>
                                         </div>
                                     </div>
                                     <div class="symptom-item" data-symptom="falls" data-category="motor">
                                         <input type="checkbox" id="falls">
                                         <label for="falls">Frequent falls</label>
                                         <div class="symptom-severity">
-                                            <div class="severity-dot" data-severity="mild"></div>
-                                            <div class="severity-dot" data-severity="moderate"></div>
-                                            <div class="severity-dot" data-severity="severe"></div>
+                                            <div class="severity-dot mild active" data-severity="mild"></div>
+                                            <div class="severity-dot moderate" data-severity="moderate"></div>
+                                            <div class="severity-dot severe" data-severity="severe"></div>
                                         </div>
                                     </div>
                                 </div>
@@ -1154,27 +1382,27 @@
                                         <input type="checkbox" id="memoryProblems">
                                         <label for="memoryProblems">Memory problems</label>
                                         <div class="symptom-severity">
-                                            <div class="severity-dot" data-severity="mild"></div>
-                                            <div class="severity-dot" data-severity="moderate"></div>
-                                            <div class="severity-dot" data-severity="severe"></div>
+                                            <div class="severity-dot mild active" data-severity="mild"></div>
+                                            <div class="severity-dot moderate" data-severity="moderate"></div>
+                                            <div class="severity-dot severe" data-severity="severe"></div>
                                         </div>
                                     </div>
                                     <div class="symptom-item" data-symptom="concentration" data-category="cognitive">
                                         <input type="checkbox" id="concentration">
                                         <label for="concentration">Poor concentration</label>
                                         <div class="symptom-severity">
-                                            <div class="severity-dot" data-severity="mild"></div>
-                                            <div class="severity-dot" data-severity="moderate"></div>
-                                            <div class="severity-dot" data-severity="severe"></div>
+                                            <div class="severity-dot mild active" data-severity="mild"></div>
+                                            <div class="severity-dot moderate" data-severity="moderate"></div>
+                                            <div class="severity-dot severe" data-severity="severe"></div>
                                         </div>
                                     </div>
                                     <div class="symptom-item" data-symptom="decision-making" data-category="cognitive">
                                         <input type="checkbox" id="decisionMaking">
                                         <label for="decisionMaking">Decision-making issues</label>
                                         <div class="symptom-severity">
-                                            <div class="severity-dot" data-severity="mild"></div>
-                                            <div class="severity-dot" data-severity="moderate"></div>
-                                            <div class="severity-dot" data-severity="severe"></div>
+                                            <div class="severity-dot mild active" data-severity="mild"></div>
+                                            <div class="severity-dot moderate" data-severity="moderate"></div>
+                                            <div class="severity-dot severe" data-severity="severe"></div>
                                         </div>
                                     </div>
                                 </div>
@@ -1187,27 +1415,27 @@
                                         <input type="checkbox" id="wordFinding">
                                         <label for="wordFinding">Word-finding difficulty</label>
                                         <div class="symptom-severity">
-                                            <div class="severity-dot" data-severity="mild"></div>
-                                            <div class="severity-dot" data-severity="moderate"></div>
-                                            <div class="severity-dot" data-severity="severe"></div>
+                                            <div class="severity-dot mild active" data-severity="mild"></div>
+                                            <div class="severity-dot moderate" data-severity="moderate"></div>
+                                            <div class="severity-dot severe" data-severity="severe"></div>
                                         </div>
                                     </div>
                                     <div class="symptom-item" data-symptom="speech-problems" data-category="cognitive">
                                         <input type="checkbox" id="speechProblems">
                                         <label for="speechProblems">Speech problems</label>
                                         <div class="symptom-severity">
-                                            <div class="severity-dot" data-severity="mild"></div>
-                                            <div class="severity-dot" data-severity="moderate"></div>
-                                            <div class="severity-dot" data-severity="severe"></div>
+                                            <div class="severity-dot mild active" data-severity="mild"></div>
+                                            <div class="severity-dot moderate" data-severity="moderate"></div>
+                                            <div class="severity-dot severe" data-severity="severe"></div>
                                         </div>
                                     </div>
                                     <div class="symptom-item" data-symptom="comprehension" data-category="cognitive">
                                         <input type="checkbox" id="comprehension">
                                         <label for="comprehension">Comprehension issues</label>
                                         <div class="symptom-severity">
-                                            <div class="severity-dot" data-severity="mild"></div>
-                                            <div class="severity-dot" data-severity="moderate"></div>
-                                            <div class="severity-dot" data-severity="severe"></div>
+                                            <div class="severity-dot mild active" data-severity="mild"></div>
+                                            <div class="severity-dot moderate" data-severity="moderate"></div>
+                                            <div class="severity-dot severe" data-severity="severe"></div>
                                         </div>
                                     </div>
                                 </div>
@@ -1235,36 +1463,36 @@
                                         <input type="checkbox" id="depression">
                                         <label for="depression">Depression</label>
                                         <div class="symptom-severity">
-                                            <div class="severity-dot" data-severity="mild"></div>
-                                            <div class="severity-dot" data-severity="moderate"></div>
-                                            <div class="severity-dot" data-severity="severe"></div>
+                                            <div class="severity-dot mild active" data-severity="mild"></div>
+                                            <div class="severity-dot moderate" data-severity="moderate"></div>
+                                            <div class="severity-dot severe" data-severity="severe"></div>
                                         </div>
                                     </div>
                                     <div class="symptom-item" data-symptom="anxiety" data-category="psychiatric">
                                         <input type="checkbox" id="anxiety">
                                         <label for="anxiety">Anxiety</label>
                                         <div class="symptom-severity">
-                                            <div class="severity-dot" data-severity="mild"></div>
-                                            <div class="severity-dot" data-severity="moderate"></div>
-                                            <div class="severity-dot" data-severity="severe"></div>
+                                            <div class="severity-dot mild active" data-severity="mild"></div>
+                                            <div class="severity-dot moderate" data-severity="moderate"></div>
+                                            <div class="severity-dot severe" data-severity="severe"></div>
                                         </div>
                                     </div>
                                     <div class="symptom-item" data-symptom="irritability" data-category="psychiatric">
                                         <input type="checkbox" id="irritability">
                                         <label for="irritability">Irritability</label>
                                         <div class="symptom-severity">
-                                            <div class="severity-dot" data-severity="mild"></div>
-                                            <div class="severity-dot" data-severity="moderate"></div>
-                                            <div class="severity-dot" data-severity="severe"></div>
+                                            <div class="severity-dot mild active" data-severity="mild"></div>
+                                            <div class="severity-dot moderate" data-severity="moderate"></div>
+                                            <div class="severity-dot severe" data-severity="severe"></div>
                                         </div>
                                     </div>
                                     <div class="symptom-item" data-symptom="apathy" data-category="psychiatric">
                                         <input type="checkbox" id="apathy">
                                         <label for="apathy">Apathy/Lack of motivation</label>
                                         <div class="symptom-severity">
-                                            <div class="severity-dot" data-severity="mild"></div>
-                                            <div class="severity-dot" data-severity="moderate"></div>
-                                            <div class="severity-dot" data-severity="severe"></div>
+                                            <div class="severity-dot mild active" data-severity="mild"></div>
+                                            <div class="severity-dot moderate" data-severity="moderate"></div>
+                                            <div class="severity-dot severe" data-severity="severe"></div>
                                         </div>
                                     </div>
                                 </div>
@@ -1277,18 +1505,18 @@
                                         <input type="checkbox" id="insomnia">
                                         <label for="insomnia">Insomnia</label>
                                         <div class="symptom-severity">
-                                            <div class="severity-dot" data-severity="mild"></div>
-                                            <div class="severity-dot" data-severity="moderate"></div>
-                                            <div class="severity-dot" data-severity="severe"></div>
+                                            <div class="severity-dot mild active" data-severity="mild"></div>
+                                            <div class="severity-dot moderate" data-severity="moderate"></div>
+                                            <div class="severity-dot severe" data-severity="severe"></div>
                                         </div>
                                     </div>
                                     <div class="symptom-item" data-symptom="fatigue" data-category="psychiatric">
                                         <input type="checkbox" id="fatigue">
                                         <label for="fatigue">Fatigue</label>
                                         <div class="symptom-severity">
-                                            <div class="severity-dot" data-severity="mild"></div>
-                                            <div class="severity-dot" data-severity="moderate"></div>
-                                            <div class="severity-dot" data-severity="severe"></div>
+                                            <div class="severity-dot mild active" data-severity="mild"></div>
+                                            <div class="severity-dot moderate" data-severity="moderate"></div>
+                                            <div class="severity-dot severe" data-severity="severe"></div>
                                         </div>
                                     </div>
                                 </div>
@@ -1301,27 +1529,27 @@
                                         <input type="checkbox" id="workDifficulty">
                                         <label for="workDifficulty">Work difficulties</label>
                                         <div class="symptom-severity">
-                                            <div class="severity-dot" data-severity="mild"></div>
-                                            <div class="severity-dot" data-severity="moderate"></div>
-                                            <div class="severity-dot" data-severity="severe"></div>
+                                            <div class="severity-dot mild active" data-severity="mild"></div>
+                                            <div class="severity-dot moderate" data-severity="moderate"></div>
+                                            <div class="severity-dot severe" data-severity="severe"></div>
                                         </div>
                                     </div>
                                     <div class="symptom-item" data-symptom="daily-tasks" data-category="functional">
                                         <input type="checkbox" id="dailyTasks">
                                         <label for="dailyTasks">Daily task problems</label>
                                         <div class="symptom-severity">
-                                            <div class="severity-dot" data-severity="mild"></div>
-                                            <div class="severity-dot" data-severity="moderate"></div>
-                                            <div class="severity-dot" data-severity="severe"></div>
+                                            <div class="severity-dot mild active" data-severity="mild"></div>
+                                            <div class="severity-dot moderate" data-severity="moderate"></div>
+                                            <div class="severity-dot severe" data-severity="severe"></div>
                                         </div>
                                     </div>
                                     <div class="symptom-item" data-symptom="driving" data-category="functional">
                                         <input type="checkbox" id="driving">
                                         <label for="driving">Driving difficulties</label>
                                         <div class="symptom-severity">
-                                            <div class="severity-dot" data-severity="mild"></div>
-                                            <div class="severity-dot" data-severity="moderate"></div>
-                                            <div class="severity-dot" data-severity="severe"></div>
+                                            <div class="severity-dot mild active" data-severity="mild"></div>
+                                            <div class="severity-dot moderate" data-severity="moderate"></div>
+                                            <div class="severity-dot severe" data-severity="severe"></div>
                                         </div>
                                     </div>
                                 </div>
@@ -1400,15 +1628,15 @@
             <!-- Unknown CAG Repeat Tab -->
             <div class="calculator-tab" id="tabUnknown">
                 <div class="progress-steps">
-                    <div class="step active" id="step1Unknown">
+                    <div class="step active" id="step1Unknown" onclick="goToStep('unknown', 1)">
                         <div class="step-number">1</div>
                         <div class="step-label">Family History</div>
                     </div>
-                    <div class="step" id="step2Unknown">
+                    <div class="step" id="step2Unknown" onclick="goToStep('unknown', 2)">
                         <div class="step-number">2</div>
                         <div class="step-label">Symptoms</div>
                     </div>
-                    <div class="step" id="step3Unknown">
+                    <div class="step" id="step3Unknown" onclick="goToStep('unknown', 3)">
                         <div class="step-number">3</div>
                         <div class="step-label">Risk Factors</div>
                     </div>
@@ -1669,6 +1897,138 @@
         </div>
     </section>
 
+    <!-- What is HD & How Do We Assess Section -->
+    <section class="info-page" id="what-is-hd">
+        <div class="container">
+            <div class="info-content">
+                <div class="info-section">
+                    <h2><i class="fas fa-dna"></i> What is Huntington's Disease?</h2>
+                    <p>Huntington's Disease (HD) is a progressive, inherited neurodegenerative disorder that affects movement, cognition, and psychiatric function. It's caused by a genetic mutation in the HTT gene, which leads to the production of an abnormal huntingtin protein that damages nerve cells in the brain.</p>
+                    
+                    <div class="info-grid">
+                        <div class="info-card">
+                            <h3><i class="fas fa-user-clock"></i> Who Gets HD?</h3>
+                            <p>HD affects approximately 5-10 people per 100,000. It's an autosomal dominant disorder, meaning each child of an affected parent has a 50% chance of inheriting the gene.</p>
+                        </div>
+                        
+                        <div class="info-card">
+                            <h3><i class="fas fa-calendar-alt"></i> Age of Onset</h3>
+                            <p>Symptoms typically appear between ages 30-50, though juvenile onset (before age 20) and late onset (after age 60) can occur. Earlier onset is associated with higher CAG repeat counts.</p>
+                        </div>
+                        
+                        <div class="info-card">
+                            <h3><i class="fas fa-chart-line"></i> Disease Progression</h3>
+                            <p>HD progresses over 10-25 years, with symptoms gradually worsening over time. The disease has distinct stages: premanifest, early, moderate, and advanced.</p>
+                        </div>
+                        
+                        <div class="info-card">
+                            <h3><i class="fas fa-brain"></i> Brain Changes</h3>
+                            <p>HD primarily affects the basal ganglia, particularly the caudate nucleus and putamen. These brain regions are involved in movement control, cognition, and emotion regulation.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="info-section">
+                    <h2><i class="fas fa-stethoscope"></i> How Do We Assess HD Risk?</h2>
+                    <p>Our assessment combines multiple validated approaches to provide accurate risk stratification:</p>
+                    
+                    <div class="assessment-methods">
+                        <div class="method-item">
+                            <div class="method-icon">
+                                <i class="fas fa-dna"></i>
+                            </div>
+                            <div>
+                                <h3>Genetic Testing & CAG Analysis</h3>
+                                <p>The definitive method for HD diagnosis. CAG repeat length is the primary genetic determinant:</p>
+                                <ul style="margin-left: 20px; margin-top: 10px;">
+                                    <li><strong>Normal:</strong> &lt;36 CAG repeats</li>
+                                    <li><strong>Reduced Penetrance:</strong> 36-39 repeats</li>
+                                    <li><strong>Full Penetrance:</strong> ≥40 repeats</li>
+                                </ul>
+                                <p style="margin-top: 10px;">Higher CAG repeats correlate with earlier onset and more rapid progression.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="method-item">
+                            <div class="method-icon">
+                                <i class="fas fa-clipboard-check"></i>
+                            </div>
+                            <div>
+                                <h3>Clinical Assessment Tools</h3>
+                                <p>Standardized scales used by neurologists:</p>
+                                <ul style="margin-left: 20px; margin-top: 10px;">
+                                    <li><strong>UHDRS:</strong> Unified Huntington's Disease Rating Scale</li>
+                                    <li><strong>TMS:</strong> Total Motor Score (0-124 scale)</li>
+                                    <li><strong>TFC:</strong> Total Functional Capacity</li>
+                                    <li><strong>SDMT:</strong> Symbol Digit Modalities Test (cognitive)</li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <div class="method-item">
+                            <div class="method-icon">
+                                <i class="fas fa-chart-bar"></i>
+                            </div>
+                            <div>
+                                <h3>Predictive Models</h3>
+                                <p>Evidence-based algorithms that combine multiple factors:</p>
+                                <ul style="margin-left: 20px; margin-top: 10px;">
+                                    <li><strong>Langbehn Formula:</strong> Age + CAG repeat prediction</li>
+                                    <li><strong>CAP Score:</strong> CAG-Age Product for progression</li>
+                                    <li><strong>Disease Burden Score:</strong> Age × (CAG - 35.5)</li>
+                                    <li><strong>Bayesian Risk Models:</strong> For unknown CAG status</li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <div class="method-item">
+                            <div class="method-icon">
+                                <i class="fas fa-brain"></i>
+                            </div>
+                            <div>
+                                <h3>Biomarkers & Imaging</h3>
+                                <p>Advanced assessment methods:</p>
+                                <ul style="margin-left: 20px; margin-top: 10px;">
+                                    <li><strong>MRI Volumetry:</strong> Caudate nucleus volume loss</li>
+                                    <li><strong>CSF Biomarkers:</strong> Neurofilament light chain (NfL)</li>
+                                    <li><strong>PET Imaging:</strong> Metabolic changes in basal ganglia</li>
+                                    <li><strong>Digital Biomarkers:</strong> Wearable sensor data</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="info-section">
+                    <h2><i class="fas fa-calculator"></i> How Our Calculator Works</h2>
+                    <p>NeuroPrognos uses a sophisticated multi-factor approach:</p>
+                    
+                    <div class="info-grid">
+                        <div class="info-card">
+                            <h3><i class="fas fa-syringe"></i> Symptom Weighting</h3>
+                            <p>Different symptoms carry different weights based on HD specificity and impact on daily function. Motor symptoms are weighted most heavily.</p>
+                        </div>
+                        
+                        <div class="info-card">
+                            <h3><i class="fas fa-project-diagram"></i> Risk Stratification</h3>
+                            <p>We combine genetic data with symptom profiles to place individuals in appropriate risk categories: Low, Medium, or High risk.</p>
+                        </div>
+                        
+                        <div class="info-card">
+                            <h3><i class="fas fa-prescription-bottle-alt"></i> Evidence-Based Recommendations</h3>
+                            <p>Treatment suggestions are based on clinical trial data and HDSA guidelines, with evidence levels (A, B, C) indicating scientific support.</p>
+                        </div>
+                        
+                        <div class="info-card">
+                            <h3><i class="fas fa-chart-line"></i> Progression Prediction</h3>
+                            <p>Using TRACK-HD and PREDICT-HD data, we estimate likely symptom progression over 10 years based on current profile.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Data Sources Section -->
     <section class="section data-sources" id="sources">
         <div class="container">
@@ -1705,6 +2065,20 @@
         </div>
     </section>
 
+    <!-- About Section -->
+    <section class="section" id="about" style="background: var(--light-gray);">
+        <div class="container">
+            <div class="section-title">
+                <h2>About NeuroPrognos</h2>
+                <p>A TILT Initiative Project for HD Risk Assessment</p>
+            </div>
+            <div style="max-width: 800px; margin: 0 auto; text-align: center;">
+                <p>NeuroPrognos is an evidence-based platform developed by the TILT Initiative to provide accurate Huntington's Disease risk assessment and personalized treatment recommendations. Our tool combines validated clinical models with user-reported symptoms to deliver personalized insights.</p>
+                <p style="margin-top: 20px;">This tool is designed for informational purposes and should not replace professional medical advice. Always consult healthcare providers for medical decisions.</p>
+            </div>
+        </div>
+    </section>
+
     <!-- Footer -->
     <footer>
         <div class="container">
@@ -1735,12 +2109,14 @@
             </div>
             
             <div class="copyright">
-                <p>&copy; 2023 NeuroPrognos. A TILT Initiative Project. Symptom-specific HD risk assessment system. v2.3.0</p>
+                <p>&copy; 2023 NeuroPrognos. A TILT Initiative Project. Symptom-specific HD risk assessment system. v2.4.1</p>
             </div>
         </div>
     </footer>
 
     <script>
+        // ============ FIXED SYMPTOM SELECTION ============
+
         // Tab Switching
         const tabKnownBtn = document.getElementById('tabKnownBtn');
         const tabUnknownBtn = document.getElementById('tabUnknownBtn');
@@ -1766,6 +2142,38 @@
             resetSteps('unknown');
         });
         
+        // Mobile Menu
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const navMenu = document.getElementById('navMenu');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+        });
+        
+        // Close mobile menu when clicking a link
+        document.querySelectorAll('nav a').forEach(link => {
+            link.addEventListener('click', () => {
+                navMenu.classList.remove('active');
+            });
+        });
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
         // Step Navigation
         function nextStep(type, step) {
             const currentStep = document.querySelector(`#${type}Step${step-1}`);
@@ -1775,12 +2183,16 @@
             
             if (currentStep) {
                 currentStep.classList.remove('active');
-                currentStepIndicator.classList.remove('active');
-                currentStepIndicator.classList.add('completed');
+                if (currentStepIndicator) {
+                    currentStepIndicator.classList.remove('active');
+                    currentStepIndicator.classList.add('completed');
+                }
             }
             
-            nextStep.classList.add('active');
-            nextStepIndicator.classList.add('active');
+            if (nextStep && nextStepIndicator) {
+                nextStep.classList.add('active');
+                nextStepIndicator.classList.add('active');
+            }
         }
         
         function prevStep(type, step) {
@@ -1791,28 +2203,60 @@
             
             if (currentStep) {
                 currentStep.classList.remove('active');
-                currentStepIndicator.classList.remove('active');
+                if (currentStepIndicator) {
+                    currentStepIndicator.classList.remove('active');
+                }
             }
             
-            prevStep.classList.add('active');
-            prevStepIndicator.classList.add('active');
-            prevStepIndicator.classList.remove('completed');
+            if (prevStep && prevStepIndicator) {
+                prevStep.classList.add('active');
+                prevStepIndicator.classList.add('active');
+                prevStepIndicator.classList.remove('completed');
+            }
+        }
+        
+        function goToStep(type, step) {
+            // Hide all steps for this type
+            const allSteps = document.querySelectorAll(`#${type} .form-step`);
+            allSteps.forEach(s => s.classList.remove('active'));
+            
+            // Show selected step
+            const targetStep = document.querySelector(`#${type}Step${step}`);
+            if (targetStep) {
+                targetStep.classList.add('active');
+            }
+            
+            // Update step indicators
+            const allStepIndicators = document.querySelectorAll(`#${type} .step`);
+            allStepIndicators.forEach((indicator, index) => {
+                indicator.classList.remove('active', 'completed');
+                if (index + 1 === step) {
+                    indicator.classList.add('active');
+                } else if (index + 1 < step) {
+                    indicator.classList.add('completed');
+                }
+            });
         }
         
         function resetSteps(type) {
             // Hide all steps
-            document.querySelectorAll(`.form-step`).forEach(step => {
-                step.classList.remove('active');
-            });
-            
-            // Reset step indicators
-            document.querySelectorAll(`.step`).forEach(step => {
-                step.classList.remove('active', 'completed');
-            });
+            const allSteps = document.querySelectorAll(`#${type} .form-step`);
+            allSteps.forEach(step => step.classList.remove('active'));
             
             // Show first step
-            document.querySelector(`#${type}Step1`).classList.add('active');
-            document.getElementById(`step1${type}`).classList.add('active');
+            const firstStep = document.querySelector(`#${type}Step1`);
+            if (firstStep) {
+                firstStep.classList.add('active');
+            }
+            
+            // Reset step indicators
+            const allStepIndicators = document.querySelectorAll(`#${type} .step`);
+            allStepIndicators.forEach((step, index) => {
+                step.classList.remove('active', 'completed');
+                if (index === 0) {
+                    step.classList.add('active');
+                }
+            });
         }
         
         // Initialize Charts
@@ -1820,205 +2264,293 @@
         
         function initializeCharts() {
             // Known CAG Chart
-            const knownCtx = document.getElementById('knownProgressionChart').getContext('2d');
-            knownChart = new Chart(knownCtx, {
-                type: 'line',
-                data: {
-                    labels: ['Current', '+2', '+4', '+6', '+8', '+10 years'],
-                    datasets: [
-                        {
-                            label: 'Motor Symptoms',
-                            data: [0, 2, 5, 10, 18, 28],
-                            borderColor: 'rgb(220, 53, 69)',
-                            backgroundColor: 'rgba(220, 53, 69, 0.1)',
-                            tension: 0.3
-                        },
-                        {
-                            label: 'Cognitive Symptoms',
-                            data: [0, 1, 3, 7, 13, 21],
-                            borderColor: 'rgb(255, 193, 7)',
-                            backgroundColor: 'rgba(255, 193, 7, 0.1)',
-                            tension: 0.3
-                        },
-                        {
-                            label: 'Functional Impact',
-                            data: [0, 0, 2, 5, 11, 19],
-                            borderColor: 'rgb(74, 159, 213)',
-                            backgroundColor: 'rgba(74, 159, 213, 0.1)',
-                            tension: 0.3
-                        }
-                    ]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: { position: 'top' }
+            const knownCtx = document.getElementById('knownProgressionChart');
+            if (knownCtx) {
+                knownChart = new Chart(knownCtx.getContext('2d'), {
+                    type: 'line',
+                    data: {
+                        labels: ['Current', '+2', '+4', '+6', '+8', '+10 years'],
+                        datasets: [
+                            {
+                                label: 'Motor Symptoms',
+                                data: [0, 2, 5, 10, 18, 28],
+                                borderColor: 'rgb(220, 53, 69)',
+                                backgroundColor: 'rgba(220, 53, 69, 0.1)',
+                                tension: 0.3
+                            },
+                            {
+                                label: 'Cognitive Symptoms',
+                                data: [0, 1, 3, 7, 13, 21],
+                                borderColor: 'rgb(255, 193, 7)',
+                                backgroundColor: 'rgba(255, 193, 7, 0.1)',
+                                tension: 0.3
+                            },
+                            {
+                                label: 'Functional Impact',
+                                data: [0, 0, 2, 5, 11, 19],
+                                borderColor: 'rgb(74, 159, 213)',
+                                backgroundColor: 'rgba(74, 159, 213, 0.1)',
+                                tension: 0.3
+                            }
+                        ]
                     },
-                    scales: {
-                        y: { 
-                            beginAtZero: true,
-                            title: { display: true, text: 'Symptom Severity Score' }
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: { 
+                                position: 'top',
+                                labels: {
+                                    boxWidth: 12,
+                                    font: {
+                                        size: 11
+                                    }
+                                }
+                            }
+                        },
+                        scales: {
+                            y: { 
+                                beginAtZero: true,
+                                title: { 
+                                    display: true, 
+                                    text: 'Symptom Severity Score',
+                                    font: {
+                                        size: 12
+                                    }
+                                }
+                            }
                         }
                     }
-                }
-            });
+                });
+            }
             
             // Unknown CAG Chart
-            const unknownCtx = document.getElementById('unknownRiskChart').getContext('2d');
-            unknownChart = new Chart(unknownCtx, {
-                type: 'radar',
-                data: {
-                    labels: ['Family History', 'Motor Symptoms', 'Cognitive Symptoms', 'Psychiatric Symptoms', 'Symptom Duration', 'Progression'],
-                    datasets: [{
-                        label: 'Your Risk Profile',
-                        data: [25, 10, 15, 20, 10, 15],
-                        backgroundColor: 'rgba(74, 159, 213, 0.2)',
-                        borderColor: 'rgb(74, 159, 213)',
-                        pointBackgroundColor: 'rgb(74, 159, 213)',
-                        pointBorderColor: '#fff',
-                        pointHoverBackgroundColor: '#fff',
-                        pointHoverBorderColor: 'rgb(74, 159, 213)'
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: { display: false }
+            const unknownCtx = document.getElementById('unknownRiskChart');
+            if (unknownCtx) {
+                unknownChart = new Chart(unknownCtx.getContext('2d'), {
+                    type: 'radar',
+                    data: {
+                        labels: ['Family History', 'Motor Symptoms', 'Cognitive Symptoms', 'Psychiatric Symptoms', 'Symptom Duration', 'Progression'],
+                        datasets: [{
+                            label: 'Your Risk Profile',
+                            data: [25, 10, 15, 20, 10, 15],
+                            backgroundColor: 'rgba(74, 159, 213, 0.2)',
+                            borderColor: 'rgb(74, 159, 213)',
+                            pointBackgroundColor: 'rgb(74, 159, 213)',
+                            pointBorderColor: '#fff',
+                            pointHoverBackgroundColor: '#fff',
+                            pointHoverBorderColor: 'rgb(74, 159, 213)'
+                        }]
                     },
-                    scales: {
-                        r: {
-                            angleLines: { display: true },
-                            suggestedMin: 0,
-                            suggestedMax: 100
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: { display: false }
+                        },
+                        scales: {
+                            r: {
+                                angleLines: { display: true },
+                                suggestedMin: 0,
+                                suggestedMax: 100,
+                                ticks: {
+                                    stepSize: 20
+                                }
+                            }
                         }
                     }
-                }
-            });
+                });
+            }
         }
         
-        // Symptom Selection Management
-        let selectedSymptoms = {
-            known: { motor: [], cognitive: [], psychiatric: [], functional: [] },
-            unknown: { motor: [], cognitive: [], psychiatric: [] }
-        };
+        // ============ FIXED SYMPTOM SELECTION CODE ============
         
         // Initialize symptom selection
         function initializeSymptomSelection() {
+            console.log("Initializing symptom selection...");
+            
             // Known CAG symptoms
             document.querySelectorAll('#tabKnown .symptom-item').forEach(item => {
                 const checkbox = item.querySelector('input[type="checkbox"]');
-                const symptom = item.getAttribute('data-symptom');
-                const category = item.getAttribute('data-category');
+                const severityDots = item.querySelectorAll('.severity-dot');
                 
-                // Set up checkbox change
+                // Set default mild severity if none selected
+                if (severityDots.length > 0 && !item.querySelector('.severity-dot.active')) {
+                    const mildDot = item.querySelector('.severity-dot[data-severity="mild"]');
+                    if (mildDot) {
+                        mildDot.classList.add('active');
+                    } else if (severityDots[0]) {
+                        severityDots[0].classList.add('active');
+                    }
+                }
+                
+                // Checkbox change handler
                 checkbox.addEventListener('change', function() {
+                    console.log("Checkbox changed:", this.checked, this.id);
                     if (this.checked) {
                         item.classList.add('selected');
                     } else {
                         item.classList.remove('selected');
                     }
                     updateSymptomSummary();
+                    updateResultsIfNeeded();
                 });
                 
-                // Set up severity dot clicks
-                item.querySelectorAll('.severity-dot').forEach(dot => {
-                    dot.addEventListener('click', function() {
-                        const severity = this.getAttribute('data-severity');
+                // Severity dot click handlers
+                severityDots.forEach(dot => {
+                    dot.addEventListener('click', function(e) {
+                        e.stopPropagation();
+                        console.log("Severity dot clicked:", this.dataset.severity);
+                        
+                        const severity = this.dataset.severity;
+                        const severityDots = item.querySelectorAll('.severity-dot');
                         
                         // Clear all severity dots
-                        item.querySelectorAll('.severity-dot').forEach(d => {
+                        severityDots.forEach(d => {
                             d.classList.remove('active', 'mild', 'moderate', 'severe');
                         });
                         
                         // Set selected severity
                         this.classList.add('active', severity);
                         
-                        if (checkbox.checked) {
+                        // Ensure checkbox is checked
+                        if (!checkbox.checked) {
+                            checkbox.checked = true;
+                            checkbox.dispatchEvent(new Event('change'));
+                        } else {
                             updateSymptomSummary();
+                            updateResultsIfNeeded();
                         }
                     });
                 });
+                
+                // Click on whole item (excluding checkbox and dots)
+                item.addEventListener('click', function(e) {
+                    if (e.target.type !== 'checkbox' && !e.target.classList.contains('severity-dot')) {
+                        console.log("Symptom item clicked:", this);
+                        checkbox.checked = !checkbox.checked;
+                        checkbox.dispatchEvent(new Event('change'));
+                    }
+                });
             });
             
-            // Unknown CAG symptoms
+            // Unknown CAG symptoms (no severity dots)
             document.querySelectorAll('#tabUnknown .symptom-item').forEach(item => {
                 const checkbox = item.querySelector('input[type="checkbox"]');
                 
                 checkbox.addEventListener('change', function() {
+                    console.log("Unknown symptom checkbox changed:", this.checked, this.id);
                     if (this.checked) {
                         item.classList.add('selected');
                     } else {
                         item.classList.remove('selected');
                     }
                     updateSymptomSummary();
+                    updateResultsIfNeeded();
+                });
+                
+                // Click on whole item
+                item.addEventListener('click', function(e) {
+                    if (e.target.type !== 'checkbox') {
+                        checkbox.checked = !checkbox.checked;
+                        checkbox.dispatchEvent(new Event('change'));
+                    }
                 });
             });
+            
+            console.log("Symptom selection initialized!");
         }
         
         // Update symptom summary display
         function updateSymptomSummary() {
+            console.log("Updating symptom summary...");
+            
             // Known CAG symptoms
             const knownTags = document.getElementById('knownSymptomTags');
-            const knownSelected = [];
-            
-            document.querySelectorAll('#tabKnown .symptom-item.selected').forEach(item => {
-                const checkbox = item.querySelector('input[type="checkbox"]');
-                const label = item.querySelector('label').textContent;
-                const category = item.getAttribute('data-category');
-                const severityDot = item.querySelector('.severity-dot.active');
-                const severity = severityDot ? severityDot.classList.contains('mild') ? 'Mild' : 
-                                              severityDot.classList.contains('moderate') ? 'Moderate' : 
-                                              severityDot.classList.contains('severe') ? 'Severe' : '' : '';
+            if (knownTags) {
+                const knownSelected = [];
                 
-                knownSelected.push({
-                    label: `${label}${severity ? ' (' + severity + ')' : ''}`,
-                    category: category
+                document.querySelectorAll('#tabKnown .symptom-item.selected').forEach(item => {
+                    const checkbox = item.querySelector('input[type="checkbox"]');
+                    const label = item.querySelector('label').textContent;
+                    const category = item.dataset.category;
+                    const severityDot = item.querySelector('.severity-dot.active');
+                    let severity = '';
+                    
+                    if (severityDot) {
+                        if (severityDot.classList.contains('mild')) severity = 'Mild';
+                        else if (severityDot.classList.contains('moderate')) severity = 'Moderate';
+                        else if (severityDot.classList.contains('severe')) severity = 'Severe';
+                    }
+                    
+                    knownSelected.push({
+                        label: `${label}${severity ? ' (' + severity + ')' : ''}`,
+                        category: category
+                    });
                 });
-            });
-            
-            if (knownSelected.length > 0) {
-                knownTags.innerHTML = '';
-                knownSelected.forEach(symptom => {
-                    const tag = document.createElement('span');
-                    tag.className = `symptom-tag ${symptom.category}`;
-                    tag.innerHTML = `<i class="fas fa-check-circle"></i> ${symptom.label}`;
-                    knownTags.appendChild(tag);
-                });
-            } else {
-                knownTags.innerHTML = '<span class="symptom-tag">No symptoms selected yet</span>';
+                
+                if (knownSelected.length > 0) {
+                    knownTags.innerHTML = '';
+                    knownSelected.forEach(symptom => {
+                        const tag = document.createElement('span');
+                        tag.className = `symptom-tag ${symptom.category}`;
+                        tag.innerHTML = `<i class="fas fa-check-circle"></i> ${symptom.label}`;
+                        knownTags.appendChild(tag);
+                    });
+                } else {
+                    knownTags.innerHTML = '<span class="symptom-tag">No symptoms selected yet</span>';
+                }
             }
             
             // Unknown CAG symptoms
             const unknownTags = document.getElementById('unknownSymptomTags');
-            const unknownSelected = [];
-            
-            document.querySelectorAll('#tabUnknown .symptom-item.selected').forEach(item => {
-                const checkbox = item.querySelector('input[type="checkbox"]');
-                const label = item.querySelector('label').textContent;
-                const category = item.getAttribute('data-category');
+            if (unknownTags) {
+                const unknownSelected = [];
                 
-                unknownSelected.push({
-                    label: label,
-                    category: category
+                document.querySelectorAll('#tabUnknown .symptom-item.selected').forEach(item => {
+                    const checkbox = item.querySelector('input[type="checkbox"]');
+                    const label = item.querySelector('label').textContent;
+                    const category = item.dataset.category;
+                    
+                    unknownSelected.push({
+                        label: label,
+                        category: category
+                    });
                 });
-            });
-            
-            if (unknownSelected.length > 0) {
-                unknownTags.innerHTML = '';
-                unknownSelected.forEach(symptom => {
-                    const tag = document.createElement('span');
-                    tag.className = `symptom-tag ${symptom.category}`;
-                    tag.innerHTML = `<i class="fas fa-check-circle"></i> ${symptom.label}`;
-                    unknownTags.appendChild(tag);
-                });
-            } else {
-                unknownTags.innerHTML = '<span class="symptom-tag">No symptoms selected yet</span>';
+                
+                if (unknownSelected.length > 0) {
+                    unknownTags.innerHTML = '';
+                    unknownSelected.forEach(symptom => {
+                        const tag = document.createElement('span');
+                        tag.className = `symptom-tag ${symptom.category}`;
+                        tag.innerHTML = `<i class="fas fa-check-circle"></i> ${symptom.label}`;
+                        unknownTags.appendChild(tag);
+                    });
+                } else {
+                    unknownTags.innerHTML = '<span class="symptom-tag">No symptoms selected yet</span>';
+                }
             }
         }
         
-        // ============ KNOWN CAG CALCULATIONS WITH SYMPTOMS ============
+        function updateResultsIfNeeded() {
+            // If we're on the last step and have results, update them
+            const activeTab = document.querySelector('.calculator-tab.active');
+            if (activeTab && activeTab.id === 'tabKnown') {
+                const knownStep4 = document.getElementById('knownStep4');
+                if (knownStep4 && knownStep4.classList.contains('active')) {
+                    // We're on the last step of known CAG, update results
+                    calculateKnownRisk();
+                }
+            } else if (activeTab && activeTab.id === 'tabUnknown') {
+                const unknownStep3 = document.getElementById('unknownStep3');
+                if (unknownStep3 && unknownStep3.classList.contains('active')) {
+                    // We're on the last step of unknown CAG, update results
+                    calculateUnknownRisk();
+                }
+            }
+        }
+        
+        // ============ KNOWN CAG CALCULATIONS ============
         
         function getKnownSymptomScore() {
             let motorScore = 0;
@@ -2037,7 +2569,7 @@
                     else if (severityDot.classList.contains('severe')) severityMultiplier = 3;
                 }
                 
-                const symptom = item.getAttribute('data-symptom');
+                const symptom = item.dataset.symptom;
                 let baseScore = 0;
                 
                 switch(symptom) {
@@ -2066,7 +2598,7 @@
                     else if (severityDot.classList.contains('severe')) severityMultiplier = 2;
                 }
                 
-                const symptom = item.getAttribute('data-symptom');
+                const symptom = item.dataset.symptom;
                 let baseScore = 0;
                 
                 switch(symptom) {
@@ -2092,7 +2624,7 @@
                     else if (severityDot.classList.contains('severe')) severityMultiplier = 2;
                 }
                 
-                const symptom = item.getAttribute('data-symptom');
+                const symptom = item.dataset.symptom;
                 let baseScore = 0;
                 
                 switch(symptom) {
@@ -2118,7 +2650,7 @@
                     else if (severityDot.classList.contains('severe')) severityMultiplier = 2.5;
                 }
                 
-                const symptom = item.getAttribute('data-symptom');
+                const symptom = item.dataset.symptom;
                 let baseScore = 0;
                 
                 switch(symptom) {
@@ -2140,8 +2672,14 @@
         }
         
         function calculateKnownRisk() {
-            const age = parseInt(document.getElementById('knownAge').value) || 35;
-            const cag = parseInt(document.getElementById('knownCAG').value) || 42;
+            console.log("Calculating known CAG risk...");
+            const ageInput = document.getElementById('knownAge');
+            const cagInput = document.getElementById('knownCAG');
+            
+            if (!ageInput || !cagInput) return;
+            
+            const age = parseInt(ageInput.value) || 35;
+            const cag = parseInt(cagInput.value) || 42;
             
             if (cag < 36) {
                 alert('CAG repeats <36 are in the normal range. If you have symptoms, consult a neurologist for alternative diagnoses.');
@@ -2171,11 +2709,17 @@
             overallRisk = Math.min(99, Math.max(1, overallRisk));
             
             // Update display
-            document.getElementById('knownRiskPercentage').textContent = Math.round(overallRisk) + '%';
-            document.getElementById('knownFiveYearRisk').textContent = Math.round(adjustedFiveYearRisk) + '%';
-            document.getElementById('knownTenYearRisk').textContent = Math.round(adjustedTenYearRisk) + '%';
-            document.getElementById('knownExpectedOnset').textContent = expectedOnset ? expectedOnset + ' yrs' : 'N/A';
-            document.getElementById('knownCAPScore').textContent = capScore.toFixed(2);
+            const riskPercentage = document.getElementById('knownRiskPercentage');
+            const fiveYearRisk = document.getElementById('knownFiveYearRisk');
+            const tenYearRisk = document.getElementById('knownTenYearRisk');
+            const expectedOnsetEl = document.getElementById('knownExpectedOnset');
+            const capScoreEl = document.getElementById('knownCAPScore');
+            
+            if (riskPercentage) riskPercentage.textContent = Math.round(overallRisk) + '%';
+            if (fiveYearRisk) fiveYearRisk.textContent = Math.round(adjustedFiveYearRisk) + '%';
+            if (tenYearRisk) tenYearRisk.textContent = Math.round(adjustedTenYearRisk) + '%';
+            if (expectedOnsetEl) expectedOnsetEl.textContent = expectedOnset ? expectedOnset + ' yrs' : 'N/A';
+            if (capScoreEl) capScoreEl.textContent = capScore.toFixed(2);
             
             // Risk category
             let riskCategory, riskColor;
@@ -2190,12 +2734,18 @@
                 riskColor = "risk-high";
             }
             
-            document.getElementById('knownRiskCategory').textContent = riskCategory;
-            document.getElementById('knownRiskCircle').className = 'risk-circle ' + riskColor;
+            const riskCategoryEl = document.getElementById('knownRiskCategory');
+            const riskCircle = document.getElementById('knownRiskCircle');
+            const riskDescription = document.getElementById('knownRiskDescription');
+            
+            if (riskCategoryEl) riskCategoryEl.textContent = riskCategory;
+            if (riskCircle) riskCircle.className = 'risk-circle ' + riskColor;
+            if (riskDescription) riskDescription.textContent = `Based on CAG${cag} and ${symptomScores.total} symptom score`;
             
             // Clinical interpretation
             const interpretation = generateKnownInterpretation(age, cag, symptomScores, overallRisk);
-            document.getElementById('knownClinicalInterpretation').innerHTML = interpretation;
+            const interpretationEl = document.getElementById('knownClinicalInterpretation');
+            if (interpretationEl) interpretationEl.innerHTML = interpretation;
             
             // Update chart with symptom-based progression
             updateKnownChart(symptomScores, age, cag);
@@ -2206,6 +2756,14 @@
             
             // Complete all steps
             completeAllSteps('known');
+            
+            // Scroll to results
+            const resultsContainer = document.querySelector('#tabKnown .results-container');
+            if (resultsContainer) {
+                resultsContainer.scrollTop = 0;
+            }
+            
+            console.log("Known CAG risk calculation complete!");
         }
         
         function generateKnownInterpretation(age, cag, symptomScores, overallRisk) {
@@ -2246,11 +2804,13 @@
         }
         
         function updateKnownChart(symptomScores, age, cag) {
+            if (!knownChart) return;
+            
             // Generate progression based on symptoms and CAG
             const years = [0, 2, 4, 6, 8, 10];
             const motorProgression = years.map(year => {
                 const base = symptomScores.motor;
-                const progressionRate = (cag - 35) * 0.5; // Faster progression with higher CAG
+                const progressionRate = (cag - 35) * 0.5;
                 return Math.min(100, base + (year * progressionRate));
             });
             
@@ -2366,6 +2926,8 @@
         
         function displayKnownRecommendations(recommendations) {
             const container = document.getElementById('knownRecommendations');
+            if (!container) return;
+            
             container.innerHTML = '';
             
             if (recommendations.length === 0) {
@@ -2410,31 +2972,38 @@
             });
         }
         
-        function completeAllSteps(type) {
-            document.querySelectorAll(`#${type} .step`).forEach(step => {
-                step.classList.add('completed');
-            });
-        }
-        
-        // ============ UNKNOWN CAG CALCULATIONS WITH SYMPTOMS ============
+        // ============ UNKNOWN CAG CALCULATIONS ============
         
         function calculateUnknownRisk() {
-            const age = parseInt(document.getElementById('unknownAge').value) || 35;
-            const gender = document.getElementById('unknownGender').value;
-            const parentHD = document.getElementById('parentHD').value;
-            const siblingHD = document.getElementById('siblingHD').value;
-            const grandparentHD = document.getElementById('grandparentHD').value;
-            const auntUncleHD = document.getElementById('auntUncleHD').value;
-            const parentOnsetAge = document.getElementById('unknownParentAge').value ? 
-                parseInt(document.getElementById('unknownParentAge').value) : null;
-            const symptomDuration = document.getElementById('unknownSymptomDuration').value;
-            const symptomProgression = document.getElementById('unknownSymptomProgression').value;
+            console.log("Calculating unknown CAG risk...");
+            const ageInput = document.getElementById('unknownAge');
+            const genderInput = document.getElementById('unknownGender');
+            const parentHDInput = document.getElementById('parentHD');
+            const siblingHDInput = document.getElementById('siblingHD');
+            const grandparentHDInput = document.getElementById('grandparentHD');
+            const auntUncleHDInput = document.getElementById('auntUncleHD');
+            const parentOnsetAgeInput = document.getElementById('unknownParentAge');
+            const symptomDurationInput = document.getElementById('unknownSymptomDuration');
+            const symptomProgressionInput = document.getElementById('unknownSymptomProgression');
             
-            // Calculate carrier probability
-            const carrierProbability = calculateCarrierProbability(parentHD, siblingHD, grandparentHD, auntUncleHD);
+            if (!ageInput || !genderInput) return;
+            
+            const age = parseInt(ageInput.value) || 35;
+            const gender = genderInput.value;
+            const parentHD = parentHDInput ? parentHDInput.value : 'no';
+            const siblingHD = siblingHDInput ? siblingHDInput.value : 'no';
+            const grandparentHD = grandparentHDInput ? grandparentHDInput.value : 'no';
+            const auntUncleHD = auntUncleHDInput ? auntUncleHDInput.value : 'no';
+            const parentOnsetAge = parentOnsetAgeInput && parentOnsetAgeInput.value ? 
+                parseInt(parentOnsetAgeInput.value) : null;
+            const symptomDuration = symptomDurationInput ? symptomDurationInput.value : 'none';
+            const symptomProgression = symptomProgressionInput ? symptomProgressionInput.value : 'no';
             
             // Get symptom profile
             const symptomProfile = getUnknownSymptomProfile();
+            
+            // Calculate carrier probability
+            const carrierProbability = calculateCarrierProbability(parentHD, siblingHD, grandparentHD, auntUncleHD);
             
             // Adjust probability based on symptoms
             let symptomAdjustment = 0;
@@ -2470,17 +3039,24 @@
             overallRisk = Math.min(99, overallRisk);
             
             // Update display
-            document.getElementById('unknownRiskPercentage').textContent = Math.round(overallRisk) + '%';
-            document.getElementById('unknownLifetimeRisk').textContent = Math.round(lifetimeRisk) + '%';
-            document.getElementById('unknownGeneticRisk').textContent = Math.round(adjustedProbability) + '%';
-            document.getElementById('unknownOnsetProbability').textContent = Math.round(onsetProbability) + '%';
+            const riskPercentage = document.getElementById('unknownRiskPercentage');
+            const lifetimeRiskEl = document.getElementById('unknownLifetimeRisk');
+            const geneticRiskEl = document.getElementById('unknownGeneticRisk');
+            const onsetProbabilityEl = document.getElementById('unknownOnsetProbability');
+            const testingBenefitEl = document.getElementById('unknownTestingBenefit');
+            
+            if (riskPercentage) riskPercentage.textContent = Math.round(overallRisk) + '%';
+            if (lifetimeRiskEl) lifetimeRiskEl.textContent = Math.round(lifetimeRisk) + '%';
+            if (geneticRiskEl) geneticRiskEl.textContent = Math.round(adjustedProbability) + '%';
+            if (onsetProbabilityEl) onsetProbabilityEl.textContent = Math.round(onsetProbability) + '%';
             
             // Testing benefit level
             let testingBenefit = 'Low';
             if (adjustedProbability > 50) testingBenefit = 'Very High';
             else if (adjustedProbability > 25) testingBenefit = 'High';
             else if (adjustedProbability > 10) testingBenefit = 'Moderate';
-            document.getElementById('unknownTestingBenefit').textContent = testingBenefit;
+            
+            if (testingBenefitEl) testingBenefitEl.textContent = testingBenefit;
             
             // Risk category
             let riskCategory, riskColor;
@@ -2495,12 +3071,16 @@
                 riskColor = "risk-high";
             }
             
-            document.getElementById('unknownRiskCategory').textContent = riskCategory;
-            document.getElementById('unknownRiskCircle').className = 'risk-circle ' + riskColor;
+            const riskCategoryEl = document.getElementById('unknownRiskCategory');
+            const riskCircle = document.getElementById('unknownRiskCircle');
+            
+            if (riskCategoryEl) riskCategoryEl.textContent = riskCategory;
+            if (riskCircle) riskCircle.className = 'risk-circle ' + riskColor;
             
             // Family analysis
             const familyAnalysis = generateUnknownInterpretation(parentHD, siblingHD, symptomProfile, adjustedProbability);
-            document.getElementById('unknownFamilyAnalysis').innerHTML = familyAnalysis;
+            const familyAnalysisEl = document.getElementById('unknownFamilyAnalysis');
+            if (familyAnalysisEl) familyAnalysisEl.innerHTML = familyAnalysis;
             
             // Update chart
             updateUnknownChart(symptomProfile, adjustedProbability, symptomDuration, symptomProgression);
@@ -2511,6 +3091,14 @@
             
             // Complete all steps
             completeAllSteps('unknown');
+            
+            // Scroll to results
+            const resultsContainer = document.querySelector('#tabUnknown .results-container');
+            if (resultsContainer) {
+                resultsContainer.scrollTop = 0;
+            }
+            
+            console.log("Unknown CAG risk calculation complete!");
         }
         
         function getUnknownSymptomProfile() {
@@ -2521,7 +3109,7 @@
             };
             
             document.querySelectorAll('#tabUnknown .symptom-item.selected').forEach(item => {
-                const category = item.getAttribute('data-category');
+                const category = item.dataset.category;
                 const label = item.querySelector('label').textContent;
                 
                 if (profile[category]) {
@@ -2573,6 +3161,8 @@
         }
         
         function updateUnknownChart(symptomProfile, probability, duration, progression) {
+            if (!unknownChart) return;
+            
             // Calculate radar chart values
             const familyScore = probability;
             const motorScore = symptomProfile.motor.length * 20;
@@ -2660,6 +3250,8 @@
         
         function displayUnknownRecommendations(recommendations) {
             const container = document.getElementById('unknownRecommendations');
+            if (!container) return;
+            
             container.innerHTML = '';
             
             if (recommendations.length === 0) {
@@ -2680,6 +3272,12 @@
                     <p>${rec.description}</p>
                 `;
                 container.appendChild(recDiv);
+            });
+        }
+        
+        function completeAllSteps(type) {
+            document.querySelectorAll(`#${type} .step`).forEach(step => {
+                step.classList.add('completed');
             });
         }
         
@@ -2744,19 +3342,53 @@
         // ============ INITIALIZATION ============
         
         document.addEventListener('DOMContentLoaded', function() {
+            console.log("DOM loaded, initializing...");
             initializeCharts();
             initializeSymptomSelection();
             
             // Set up calculate buttons
-            document.getElementById('calculateKnownBtn').addEventListener('click', calculateKnownRisk);
-            document.getElementById('calculateUnknownBtn').addEventListener('click', calculateUnknownRisk);
+            const calculateKnownBtn = document.getElementById('calculateKnownBtn');
+            const calculateUnknownBtn = document.getElementById('calculateUnknownBtn');
+            
+            if (calculateKnownBtn) {
+                calculateKnownBtn.addEventListener('click', calculateKnownRisk);
+            }
+            
+            if (calculateUnknownBtn) {
+                calculateUnknownBtn.addEventListener('click', calculateUnknownRisk);
+            }
             
             // Auto-calculate with default values
             setTimeout(() => {
+                console.log("Auto-calculating with defaults...");
                 updateSymptomSummary();
                 calculateKnownRisk();
                 calculateUnknownRisk();
             }, 1000);
+            
+            // Set active nav link based on scroll position
+            window.addEventListener('scroll', function() {
+                const sections = document.querySelectorAll('section[id]');
+                const navLinks = document.querySelectorAll('nav a');
+                
+                let current = '';
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop - 100;
+                    const sectionHeight = section.clientHeight;
+                    if (scrollY >= sectionTop && scrollY < sectionTop + sectionHeight) {
+                        current = section.getAttribute('id');
+                    }
+                });
+                
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href') === `#${current}`) {
+                        link.classList.add('active');
+                    }
+                });
+            });
+            
+            console.log("Initialization complete!");
         });
     </script>
 </body>
