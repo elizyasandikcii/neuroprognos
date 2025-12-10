@@ -806,6 +806,7 @@
             nav ul {
                 flex-wrap: wrap;
                 justify-content: center;
+                gap: 15px;
             }
             
             .hero h1 {
@@ -862,6 +863,8 @@
                     <ul id="navMenu">
                         <li><a href="#home" class="active">Home</a></li>
                         <li><a href="#calculator">Risk Calculator</a></li>
+                        <li><a href="#what-is-hd">What is HD</a></li>
+                        <li><a href="#our-methods">Our Methods</a></li>
                     </ul>
                 </nav>
                 <a href="#calculator" class="cta-button">Start Assessment</a>
@@ -1276,7 +1279,6 @@
                     <ul>
                         <li><a href="#home">Home</a></li>
                         <li><a href="#calculator">Risk Calculator</a></li>
-                        <li><a href="#disclaimer">Disclaimer</a></li>
                     </ul>
                 </div>
                 
@@ -1911,16 +1913,18 @@
             // Smooth scrolling for navigation
             document.querySelectorAll('nav a').forEach(anchor => {
                 anchor.addEventListener('click', function(e) {
-                    e.preventDefault();
                     const targetId = this.getAttribute('href');
-                    if (targetId === '#') return;
                     
-                    const targetElement = document.querySelector(targetId);
-                    if (targetElement) {
-                        window.scrollTo({
-                            top: targetElement.offsetTop - 80,
-                            behavior: 'smooth'
-                        });
+                    // Only handle internal links for smooth scrolling
+                    if (targetId.startsWith('#')) {
+                        e.preventDefault();
+                        const targetElement = document.querySelector(targetId);
+                        if (targetElement) {
+                            window.scrollTo({
+                                top: targetElement.offsetTop - 80,
+                                behavior: 'smooth'
+                            });
+                        }
                     }
                 });
             });
