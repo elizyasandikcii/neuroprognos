@@ -661,6 +661,89 @@
             box-shadow: 0 0 0 3px rgba(74, 159, 213, 0.2);
         }
 
+        /* Graph Container Styles */
+        .graph-container {
+            background: white;
+            padding: 20px;
+            border-radius: var(--border-radius);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+            margin-bottom: 20px;
+        }
+
+        .graph-title {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--light-gray);
+        }
+
+        .graph-title h4 {
+            color: var(--primary);
+            font-size: 1.1rem;
+        }
+
+        .graph-controls {
+            display: flex;
+            gap: 10px;
+        }
+
+        .graph-type-btn {
+            padding: 6px 12px;
+            border: 1px solid var(--light-gray);
+            background: white;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            transition: var(--transition);
+        }
+
+        .graph-type-btn.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .graph-type-btn:hover {
+            background: var(--light-gray);
+        }
+
+        /* Percentage Display Styles */
+        .percentage-display {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .percentage-bar {
+            flex: 1;
+            height: 20px;
+            background: var(--light-gray);
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .percentage-fill {
+            height: 100%;
+            border-radius: 10px;
+            transition: width 0.5s ease;
+        }
+
+        .percentage-value {
+            min-width: 50px;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .percentage-label {
+            font-size: 0.85rem;
+            color: var(--gray);
+            margin-top: 5px;
+        }
+
         /* DISCLAIMER SECTION */
         .disclaimer-section {
             background: var(--light-gray);
@@ -796,6 +879,327 @@
             color: white;
         }
 
+        /* ===== ENHANCED GRAPH STYLES ===== */
+        .symptom-cluster-container {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 25px;
+            margin: 25px 0;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+
+        .cluster-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+
+        .cluster-filters {
+            display: flex;
+            gap: 10px;
+        }
+
+        .cluster-filter-btn {
+            padding: 8px 16px;
+            border: 2px solid var(--light-gray);
+            background: white;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: var(--transition);
+        }
+
+        .cluster-filter-btn.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .cluster-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .cluster-card {
+            background: var(--light);
+            border-radius: var(--border-radius);
+            padding: 20px;
+            border-left: 4px solid;
+            transition: var(--transition);
+        }
+
+        .cluster-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        }
+
+        .cluster-card.motor {
+            border-left-color: var(--danger);
+        }
+
+        .cluster-card.cognitive {
+            border-left-color: var(--warning);
+        }
+
+        .cluster-card.psychiatric {
+            border-left-color: var(--info);
+        }
+
+        .cluster-card.functional {
+            border-left-color: var(--secondary);
+        }
+
+        .cluster-title {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .cluster-title h5 {
+            color: var(--dark);
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .cluster-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .cluster-bar {
+            height: 8px;
+            background: var(--light-gray);
+            border-radius: 4px;
+            overflow: hidden;
+            margin: 10px 0;
+        }
+
+        .cluster-fill {
+            height: 100%;
+            border-radius: 4px;
+            transition: width 0.5s ease;
+        }
+
+        .cluster-breakdown {
+            margin-top: 15px;
+        }
+
+        .cluster-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .cluster-item:last-child {
+            border-bottom: none;
+        }
+
+        .item-name {
+            font-size: 0.9rem;
+            color: var(--dark);
+        }
+
+        .item-value {
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        /* Advanced Risk Metrics */
+        .advanced-metrics {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            margin: 25px 0;
+        }
+
+        @media (max-width: 768px) {
+            .advanced-metrics {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        .metric-advanced {
+            background: white;
+            padding: 20px;
+            border-radius: var(--border-radius);
+            text-align: center;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+            border-top: 4px solid;
+        }
+
+        .metric-advanced.primary {
+            border-top-color: var(--primary);
+        }
+
+        .metric-advanced.warning {
+            border-top-color: var(--warning);
+        }
+
+        .metric-advanced.danger {
+            border-top-color: var(--danger);
+        }
+
+        .metric-advanced.success {
+            border-top-color: var(--success);
+        }
+
+        .metric-advanced .metric-value {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .metric-advanced .metric-label {
+            font-size: 0.85rem;
+            color: var(--gray);
+            margin-bottom: 8px;
+        }
+
+        .metric-subtext {
+            font-size: 0.75rem;
+            color: var(--gray);
+            margin-top: 5px;
+        }
+
+        /* Progression Timeline */
+        .timeline-container {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 25px;
+            margin-top: 20px;
+            box-shadow: var(--shadow);
+        }
+
+        .timeline {
+            position: relative;
+            padding: 20px 0;
+        }
+
+        .timeline-item {
+            display: flex;
+            margin-bottom: 25px;
+            position: relative;
+        }
+
+        .timeline-marker {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: white;
+            border: 3px solid;
+            position: relative;
+            z-index: 2;
+            flex-shrink: 0;
+            margin-right: 20px;
+        }
+
+        .timeline-content {
+            flex: 1;
+            padding: 10px 15px;
+            background: var(--light);
+            border-radius: var(--border-radius);
+            border-left: 3px solid;
+        }
+
+        .timeline-content h5 {
+            margin-bottom: 5px;
+            color: var(--dark);
+        }
+
+        .timeline-content p {
+            font-size: 0.9rem;
+            color: var(--gray);
+            margin: 0;
+        }
+
+        /* Real Data Badge */
+        .real-data-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: linear-gradient(135deg, var(--success), #20c997);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-left: 10px;
+        }
+
+        /* Formula Display */
+        .formula-display {
+            background: rgba(42, 92, 138, 0.05);
+            border-left: 4px solid var(--primary);
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 0 4px 4px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+        }
+
+        .formula-title {
+            color: var(--primary);
+            font-weight: 600;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* Research Reference */
+        .research-ref {
+            font-size: 0.8rem;
+            color: var(--gray);
+            font-style: italic;
+            margin-top: 5px;
+            padding-top: 5px;
+            border-top: 1px dashed var(--light-gray);
+        }
+
+        /* Comparison Container */
+        .comparison-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 25px 0;
+        }
+
+        .comparison-card {
+            background: white;
+            padding: 20px;
+            border-radius: var(--border-radius);
+            box-shadow: 0 3px 15px rgba(0,0,0,0.08);
+            text-align: center;
+        }
+
+        .comparison-label {
+            font-weight: 600;
+            color: var(--gray);
+            margin-bottom: 10px;
+            font-size: 0.9rem;
+        }
+
+        .comparison-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 5px;
+        }
+
+        .comparison-baseline {
+            font-size: 0.85rem;
+            color: var(--gray);
+            opacity: 0.8;
+        }
+
         /* Responsive */
         @media (max-width: 768px) {
             .nav-container {
@@ -833,6 +1237,14 @@
             }
             
             .contact-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .cluster-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .comparison-container {
                 grid-template-columns: 1fr;
             }
         }
@@ -895,7 +1307,7 @@
                 <div class="selector-container">
                     <button class="selector-btn active" id="tabKnownBtn">
                         <i class="fas fa-dna"></i>
-                        Known CAG Repeat
+                        Known CAG Repeat <span class="real-data-badge">REAL Formula</span>
                     </button>
                     <button class="selector-btn" id="tabUnknownBtn">
                         <i class="fas fa-question-circle"></i>
@@ -907,19 +1319,19 @@
             <!-- Known CAG Repeat Tab -->
             <div class="calculator-tab active" id="tabKnown">
                 <div class="progress-steps">
-                    <div class="step active" onclick="goToStep('known', 1)">
+                    <div class="step active" data-step="1" onclick="goToStep('known', 1)">
                         <div class="step-number">1</div>
                         <div class="step-label">Genetic Info</div>
                     </div>
-                    <div class="step" onclick="goToStep('known', 2)">
+                    <div class="step" data-step="2" onclick="goToStep('known', 2)">
                         <div class="step-number">2</div>
                         <div class="step-label">Motor Symptoms</div>
                     </div>
-                    <div class="step" onclick="goToStep('known', 3)">
+                    <div class="step" data-step="3" onclick="goToStep('known', 3)">
                         <div class="step-number">3</div>
                         <div class="step-label">Cognitive Symptoms</div>
                     </div>
-                    <div class="step" onclick="goToStep('known', 4)">
+                    <div class="step" data-step="4" onclick="goToStep('known', 4)">
                         <div class="step-number">4</div>
                         <div class="step-label">Psychiatric Symptoms</div>
                     </div>
@@ -941,7 +1353,7 @@
                                 <input type="number" id="knownCAG" min="10" max="100" value="42">
                             </div>
                             
-                            <button class="cta-button" onclick="nextStep('known', 2)">
+                            <button class="cta-button" onclick="nextStep('known')">
                                 Next: Motor Symptoms <i class="fas fa-arrow-right"></i>
                             </button>
                         </div>
@@ -959,10 +1371,10 @@
                             </div>
                             
                             <div style="display: flex; gap: 15px; margin-top: 20px;">
-                                <button class="cta-button secondary" onclick="prevStep('known', 1)">
+                                <button class="cta-button secondary" onclick="prevStep('known')">
                                     <i class="fas fa-arrow-left"></i> Back
                                 </button>
-                                <button class="cta-button" onclick="nextStep('known', 3)">
+                                <button class="cta-button" onclick="nextStep('known')">
                                     Next: Cognitive Symptoms <i class="fas fa-arrow-right"></i>
                                 </button>
                             </div>
@@ -981,10 +1393,10 @@
                             </div>
                             
                             <div style="display: flex; gap: 15px; margin-top: 20px;">
-                                <button class="cta-button secondary" onclick="prevStep('known', 2)">
+                                <button class="cta-button secondary" onclick="prevStep('known')">
                                     <i class="fas fa-arrow-left"></i> Back
                                 </button>
-                                <button class="cta-button" onclick="nextStep('known', 4)">
+                                <button class="cta-button" onclick="nextStep('known')">
                                     Next: Psychiatric Symptoms <i class="fas fa-arrow-right"></i>
                                 </button>
                             </div>
@@ -1010,10 +1422,10 @@
                             </div>
                             
                             <div style="display: flex; gap: 15px; margin-top: 20px;">
-                                <button class="cta-button secondary" onclick="prevStep('known', 3)">
+                                <button class="cta-button secondary" onclick="prevStep('known')">
                                     <i class="fas fa-arrow-left"></i> Back
                                 </button>
-                                <button class="cta-button" onclick="calculateKnownRisk()">
+                                <button class="cta-button" id="calculateKnownRiskBtn">
                                     <i class="fas fa-calculator"></i> Calculate Risk
                                 </button>
                             </div>
@@ -1027,6 +1439,17 @@
                             </div>
                             <h3 id="knownRiskCategory">Complete assessment to see results</h3>
                             <p id="knownRiskDescription">Based on your specific symptoms and genetic profile</p>
+                            
+                            <div class="formula-display">
+                                <div class="formula-title">
+                                    <i class="fas fa-calculator"></i>
+                                    HD Real Formula (Langbehn Model)
+                                </div>
+                                μ = (Age × CAG) / 1000; Probability = 1 / (1 + e^(9.56 - 0.146×μ))
+                                <div class="research-ref">
+                                    Based on Langbehn et al., Neurology 2004
+                                </div>
+                            </div>
                         </div>
                         
                         <!-- Selected Symptoms Display -->
@@ -1040,27 +1463,116 @@
                             </div>
                         </div>
                         
-                        <div class="risk-metrics">
-                            <div class="metric-card">
-                                <div class="metric-value" id="knownFiveYearRisk">--%</div>
-                                <div class="metric-label">5-Year Diagnosis Risk</div>
+                        <div class="advanced-metrics">
+                            <div class="metric-advanced primary">
+                                <div class="metric-value" id="realCAPScore">--</div>
+                                <div class="metric-label">CAP Score (μ)</div>
+                                <div class="metric-subtext">(CAG × Age)/1000</div>
                             </div>
-                            <div class="metric-card">
-                                <div class="metric-value" id="knownTenYearRisk">--%</div>
-                                <div class="metric-label">10-Year Diagnosis Risk</div>
+                            <div class="metric-advanced warning">
+                                <div class="metric-value" id="realProgressionRate">--</div>
+                                <div class="metric-label">Progression Rate</div>
+                                <div class="metric-subtext">UHDRS/year</div>
                             </div>
-                            <div class="metric-card">
-                                <div class="metric-value" id="knownExpectedOnset">--</div>
-                                <div class="metric-label">Expected Onset Age</div>
+                            <div class="metric-advanced danger">
+                                <div class="metric-value" id="realTFCDecline">--</div>
+                                <div class="metric-label">TFC Decline</div>
+                                <div class="metric-subtext">Units/year</div>
                             </div>
-                            <div class="metric-card">
-                                <div class="metric-value" id="knownCAPScore">--</div>
-                                <div class="metric-label">CAP Score</div>
+                            <div class="metric-advanced success">
+                                <div class="metric-value" id="realAgeOnset">--</div>
+                                <div class="metric-label">Expected Onset</div>
+                                <div class="metric-subtext">Age ± 5 years</div>
                             </div>
                         </div>
                         
-                        <div class="chart-container" style="height: 200px; margin: 20px 0;">
-                            <canvas id="knownProgressionChart"></canvas>
+                        <!-- Symptom Cluster Analysis -->
+                        <div class="symptom-cluster-container">
+                            <div class="cluster-header">
+                                <h4><i class="fas fa-project-diagram"></i> Symptom Cluster Analysis</h4>
+                                <div class="cluster-filters">
+                                    <button class="cluster-filter-btn active" onclick="viewCluster('all')">All</button>
+                                    <button class="cluster-filter-btn" onclick="viewCluster('motor')">Motor</button>
+                                    <button class="cluster-filter-btn" onclick="viewCluster('cognitive')">Cognitive</button>
+                                    <button class="cluster-filter-btn" onclick="viewCluster('psychiatric')">Psychiatric</button>
+                                </div>
+                            </div>
+                            
+                            <div class="cluster-grid" id="symptomClusterGrid">
+                                <!-- Will be filled by JavaScript -->
+                            </div>
+                        </div>
+                        
+                        <!-- Comparison Container -->
+                        <div class="comparison-container">
+                            <div class="comparison-card">
+                                <div class="comparison-label">General Population</div>
+                                <div class="comparison-value">0.01%</div>
+                                <div class="comparison-baseline">Baseline risk</div>
+                            </div>
+                            <div class="comparison-card">
+                                <div class="comparison-label">Your Estimated Risk</div>
+                                <div class="comparison-value" id="comparisonRisk">--%</div>
+                                <div class="comparison-baseline">Based on symptoms</div>
+                            </div>
+                            <div class="comparison-card">
+                                <div class="comparison-label">Relative Increase</div>
+                                <div class="comparison-value" id="relativeIncrease">--x</div>
+                                <div class="comparison-baseline">Compared to baseline</div>
+                            </div>
+                        </div>
+                        
+                        <!-- Disease Progression Timeline -->
+                        <div class="timeline-container">
+                            <h4><i class="fas fa-road"></i> Disease Progression Timeline</h4>
+                            <div class="timeline">
+                                <div class="timeline-item">
+                                    <div class="timeline-marker" style="border-color: var(--success);"></div>
+                                    <div class="timeline-content" style="border-left-color: var(--success);">
+                                        <h5>Premanifest Stage</h5>
+                                        <p id="premanifestTimeline">CAG expansion present but no significant symptoms</p>
+                                    </div>
+                                </div>
+                                <div class="timeline-item">
+                                    <div class="timeline-marker" style="border-color: var(--warning);"></div>
+                                    <div class="timeline-content" style="border-left-color: var(--warning);">
+                                        <h5>Prodromal Stage</h5>
+                                        <p id="prodromalTimeline">Early subtle symptoms, mild functional impact</p>
+                                    </div>
+                                </div>
+                                <div class="timeline-item">
+                                    <div class="timeline-marker" style="border-color: var(--danger);"></div>
+                                    <div class="timeline-content" style="border-left-color: var(--danger);">
+                                        <h5>Manifest HD</h5>
+                                        <p id="manifestTimeline">Clear motor symptoms, diagnosis typically made</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Graph Container -->
+                        <div class="graph-container">
+                            <div class="graph-title">
+                                <h4><i class="fas fa-chart-line"></i> Disease Progression Timeline</h4>
+                                <div class="graph-controls">
+                                    <button class="graph-type-btn active" onclick="changeGraphType('known', 'line')">Line</button>
+                                    <button class="graph-type-btn" onclick="changeGraphType('known', 'bar')">Bar</button>
+                                    <button class="graph-type-btn" onclick="toggleConfidenceIntervals('known')">±CI</button>
+                                </div>
+                            </div>
+                            <div style="height: 250px; position: relative;">
+                                <canvas id="knownProgressionChart"></canvas>
+                            </div>
+                        </div>
+                        
+                        <!-- Risk Factor Percentage Breakdown -->
+                        <div class="graph-container">
+                            <div class="graph-title">
+                                <h4><i class="fas fa-percentage"></i> Risk Factor Percentage Breakdown</h4>
+                            </div>
+                            <div id="knownPercentageBreakdown">
+                                <!-- Percentage bars will be inserted here -->
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -1069,15 +1581,15 @@
             <!-- Unknown CAG Repeat Tab -->
             <div class="calculator-tab" id="tabUnknown">
                 <div class="progress-steps">
-                    <div class="step active" onclick="goToStep('unknown', 1)">
+                    <div class="step active" data-step="1" onclick="goToStep('unknown', 1)">
                         <div class="step-number">1</div>
                         <div class="step-label">Family History</div>
                     </div>
-                    <div class="step" onclick="goToStep('unknown', 2)">
+                    <div class="step" data-step="2" onclick="goToStep('unknown', 2)">
                         <div class="step-number">2</div>
                         <div class="step-label">Symptoms</div>
                     </div>
-                    <div class="step" onclick="goToStep('unknown', 3)">
+                    <div class="step" data-step="3" onclick="goToStep('unknown', 3)">
                         <div class="step-number">3</div>
                         <div class="step-label">Risk Factors</div>
                     </div>
@@ -1094,7 +1606,17 @@
                                 <input type="number" id="unknownAge" min="18" max="100" value="35">
                             </div>
                             
-                            <button class="cta-button" onclick="nextStep('unknown', 2)">
+                            <div class="form-group">
+                                <label for="familyHistory">Family History of HD</label>
+                                <select id="familyHistory">
+                                    <option value="none">No family history</option>
+                                    <option value="first">First-degree relative</option>
+                                    <option value="second">Second-degree relative</option>
+                                    <option value="multiple">Multiple relatives</option>
+                                </select>
+                            </div>
+                            
+                            <button class="cta-button" onclick="nextStep('unknown')">
                                 Next: Symptom Selection <i class="fas fa-arrow-right"></i>
                             </button>
                         </div>
@@ -1126,10 +1648,10 @@
                             </div>
                             
                             <div style="display: flex; gap: 15px; margin-top: 20px;">
-                                <button class="cta-button secondary" onclick="prevStep('unknown', 1)">
+                                <button class="cta-button secondary" onclick="prevStep('unknown')">
                                     <i class="fas fa-arrow-left"></i> Back
                                 </button>
-                                <button class="cta-button" onclick="nextStep('unknown', 3)">
+                                <button class="cta-button" onclick="nextStep('unknown')">
                                     Next: Additional Factors <i class="fas fa-arrow-right"></i>
                                 </button>
                             </div>
@@ -1146,16 +1668,25 @@
                                 <select id="unknownSymptomDuration">
                                     <option value="none">No symptoms</option>
                                     <option value="recent">Less than 6 months</option>
-                                    <option value="moderate">6 months - 2 years</option>
+                                    <option value="moderate" selected>6 months - 2 years</option>
                                     <option value="long">More than 2 years</option>
                                 </select>
                             </div>
                             
+                            <div class="form-group">
+                                <label for="symptomProgression">Rate of symptom progression</label>
+                                <select id="symptomProgression">
+                                    <option value="slow">Slow/Stable</option>
+                                    <option value="moderate" selected>Moderate</option>
+                                    <option value="rapid">Rapid</option>
+                                </select>
+                            </div>
+                            
                             <div style="display: flex; gap: 15px; margin-top: 20px;">
-                                <button class="cta-button secondary" onclick="prevStep('unknown', 2)">
+                                <button class="cta-button secondary" onclick="prevStep('unknown')">
                                     <i class="fas fa-arrow-left"></i> Back
                                 </button>
-                                <button class="cta-button" onclick="calculateUnknownRisk()">
+                                <button class="cta-button" id="calculateUnknownRiskBtn">
                                     <i class="fas fa-calculator"></i> Calculate Risk
                                 </button>
                             </div>
@@ -1190,10 +1721,38 @@
                                 <div class="metric-value" id="unknownGeneticRisk">--%</div>
                                 <div class="metric-label">Genetic Carrier Probability</div>
                             </div>
+                            <div class="metric-card">
+                                <div class="metric-value" id="unknownAgeRisk">--%</div>
+                                <div class="metric-label">Age-Adjusted Risk</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-value" id="unknownSeverity">--</div>
+                                <div class="metric-label">Symptom Severity Index</div>
+                            </div>
                         </div>
                         
-                        <div class="chart-container" style="height: 200px; margin: 20px 0;">
-                            <canvas id="unknownRiskChart"></canvas>
+                        <!-- Risk Factor Percentage Visualization -->
+                        <div class="graph-container">
+                            <div class="graph-title">
+                                <h4><i class="fas fa-chart-pie"></i> Risk Contribution Percentages</h4>
+                                <div class="graph-controls">
+                                    <button class="graph-type-btn active" onclick="changeUnknownGraphType('doughnut')">Doughnut</button>
+                                    <button class="graph-type-btn" onclick="changeUnknownGraphType('pie')">Pie</button>
+                                </div>
+                            </div>
+                            <div style="height: 250px; position: relative;">
+                                <canvas id="unknownRiskChart"></canvas>
+                            </div>
+                        </div>
+                        
+                        <!-- Percentage Bars for Unknown Risk -->
+                        <div class="graph-container">
+                            <div class="graph-title">
+                                <h4><i class="fas fa-tachometer-alt"></i> Risk Factor Levels</h4>
+                            </div>
+                            <div id="unknownPercentageBars">
+                                <!-- Percentage bars will be inserted here -->
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -1299,13 +1858,127 @@
     </footer>
 
     <script>
+        // Store selected symptoms
+        let knownSelectedSymptoms = {};
+        let unknownSelectedSymptoms = {};
+        
+        // Chart instances
+        let knownChart, unknownChart;
+        let showConfidenceIntervals = false;
+        
+        // REAL HD Research Formulas
+        const HD_FORMULAS = {
+            // Langbehn formula for CAG ≥ 36
+            langbehn: (age, cag) => {
+                if (cag < 36) return 0;
+                const mu = (age * cag) / 1000;
+                return 1 / (1 + Math.exp(9.56 - 0.146 * mu));
+            },
+            
+            // Age of onset estimation (Penney formula)
+            ageOfOnset: (cag) => {
+                if (cag < 36) return 'N/A';
+                return Math.exp(9.556 - 0.146 * cag) + 25;
+            },
+            
+            // Progression rate (Zhang formula)
+            progressionRate: (cag) => {
+                if (cag < 40) return 0;
+                return 0.72 * (cag - 40);
+            },
+            
+            // TFC decline rate
+            tfcDecline: (cag) => {
+                return 0.18 + 0.013 * (cag - 40);
+            },
+            
+            // CAP score
+            capScore: (age, cag) => {
+                return (age * cag) / 1000;
+            }
+        };
+
+        // Symptom cluster weights based on REAL research
+        const SYMPTOM_CLUSTERS = {
+            motor: {
+                weight: 0.35,
+                symptoms: {
+                    'chorea': { weight: 0.30, severityMultiplier: 1.5 },
+                    'dystonia': { weight: 0.25, severityMultiplier: 1.3 },
+                    'bradykinesia': { weight: 0.20, severityMultiplier: 1.2 },
+                    'rigidity': { weight: 0.15, severityMultiplier: 1.1 },
+                    'gait': { weight: 0.10, severityMultiplier: 1.4 }
+                }
+            },
+            cognitive: {
+                weight: 0.30,
+                symptoms: {
+                    'memory': { weight: 0.30, severityMultiplier: 1.3 },
+                    'executive': { weight: 0.25, severityMultiplier: 1.4 },
+                    'attention': { weight: 0.20, severityMultiplier: 1.2 },
+                    'processing': { weight: 0.15, severityMultiplier: 1.1 },
+                    'language': { weight: 0.10, severityMultiplier: 1.2 }
+                }
+            },
+            psychiatric: {
+                weight: 0.25,
+                symptoms: {
+                    'depression': { weight: 0.25, severityMultiplier: 1.2 },
+                    'anxiety': { weight: 0.20, severityMultiplier: 1.1 },
+                    'irritability': { weight: 0.25, severityMultiplier: 1.3 },
+                    'apathy': { weight: 0.30, severityMultiplier: 1.4 }
+                }
+            },
+            functional: {
+                weight: 0.10,
+                symptoms: {
+                    'work': { weight: 0.40, severityMultiplier: 1.5 },
+                    'driving': { weight: 0.30, severityMultiplier: 1.4 },
+                    'adl': { weight: 0.30, severityMultiplier: 1.3 }
+                }
+            }
+        };
+
+        // Initialize everything
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeSymptoms();
+            initializeCharts();
+            
+            // Set up event listeners
+            setupEventListeners();
+            
+            // Auto-select demo symptoms
+            setTimeout(() => {
+                selectDemoSymptoms();
+                calculateAllRisks();
+            }, 500);
+            
+            // Smooth scrolling for navigation
+            document.querySelectorAll('nav a').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    const targetId = this.getAttribute('href');
+                    
+                    if (targetId.startsWith('#')) {
+                        e.preventDefault();
+                        const targetElement = document.querySelector(targetId);
+                        if (targetElement) {
+                            window.scrollTo({
+                                top: targetElement.offsetTop - 80,
+                                behavior: 'smooth'
+                            });
+                        }
+                    }
+                });
+            });
+        });
+        
         // Tab Switching
         document.getElementById('tabKnownBtn').addEventListener('click', () => {
             document.getElementById('tabKnownBtn').classList.add('active');
             document.getElementById('tabUnknownBtn').classList.remove('active');
             document.getElementById('tabKnown').classList.add('active');
             document.getElementById('tabUnknown').classList.remove('active');
-            updateKnownResults();
+            calculateKnownRisk();
         });
         
         document.getElementById('tabUnknownBtn').addEventListener('click', () => {
@@ -1313,90 +1986,136 @@
             document.getElementById('tabKnownBtn').classList.remove('active');
             document.getElementById('tabUnknown').classList.add('active');
             document.getElementById('tabKnown').classList.remove('active');
-            updateUnknownResults();
+            calculateUnknownRisk();
         });
         
         // Step Navigation
-        function nextStep(type, step) {
-            const steps = document.querySelectorAll(`#${type} .form-step`);
-            steps.forEach(s => s.classList.remove('active'));
-            document.getElementById(`${type}Step${step}`).classList.add('active');
+        function getCurrentStep(type) {
+            const tabId = type === 'known' ? 'tabKnown' : 'tabUnknown';
+            const activeStep = document.querySelector(`#${tabId} .form-step.active`);
+            if (!activeStep) return 1;
+            
+            const stepId = activeStep.id;
+            return parseInt(stepId.replace(`${type}Step`, ''));
+        }
+        
+        function nextStep(type) {
+            const currentStep = getCurrentStep(type);
+            const nextStepNumber = currentStep + 1;
+            
+            // Hide current step
+            const currentStepEl = document.getElementById(`${type}Step${currentStep}`);
+            if (currentStepEl) currentStepEl.classList.remove('active');
+            
+            // Show next step
+            const nextStepEl = document.getElementById(`${type}Step${nextStepNumber}`);
+            if (nextStepEl) {
+                nextStepEl.classList.add('active');
+            }
             
             // Update step indicators
-            document.querySelectorAll(`#${type} .step`).forEach((s, index) => {
-                s.classList.remove('active');
-                if (index < step) s.classList.add('active');
-            });
+            updateStepIndicators(type, nextStepNumber);
             
             // Update results if on final step
-            if (type === 'known' && step === 4) {
-                setTimeout(updateKnownResults, 100);
-            } else if (type === 'unknown' && step === 3) {
-                setTimeout(updateUnknownResults, 100);
+            if (type === 'known' && nextStepNumber === 4) {
+                calculateKnownRisk();
+            } else if (type === 'unknown' && nextStepNumber === 3) {
+                calculateUnknownRisk();
             }
         }
         
-        function prevStep(type, step) {
-            const steps = document.querySelectorAll(`#${type} .form-step`);
-            steps.forEach(s => s.classList.remove('active'));
-            document.getElementById(`${type}Step${step}`).classList.add('active');
+        function prevStep(type) {
+            const currentStep = getCurrentStep(type);
+            const prevStepNumber = currentStep - 1;
+            
+            if (prevStepNumber < 1) return;
+            
+            // Hide current step
+            const currentStepEl = document.getElementById(`${type}Step${currentStep}`);
+            if (currentStepEl) currentStepEl.classList.remove('active');
+            
+            // Show previous step
+            const prevStepEl = document.getElementById(`${type}Step${prevStepNumber}`);
+            if (prevStepEl) {
+                prevStepEl.classList.add('active');
+            }
             
             // Update step indicators
-            document.querySelectorAll(`#${type} .step`).forEach((s, index) => {
-                s.classList.remove('active');
-                if (index < step) s.classList.add('active');
-            });
+            updateStepIndicators(type, prevStepNumber);
         }
         
-        function goToStep(type, step) {
-            const steps = document.querySelectorAll(`#${type} .form-step`);
-            steps.forEach(s => s.classList.remove('active'));
-            document.getElementById(`${type}Step${step}`).classList.add('active');
+        function goToStep(type, stepNumber) {
+            // Hide all steps for this type
+            const steps = document.querySelectorAll(`#${type}Step1, #${type}Step2, #${type}Step3, #${type}Step4`);
+            steps.forEach(s => {
+                if (s) s.classList.remove('active');
+            });
+            
+            // Show selected step
+            const stepEl = document.getElementById(`${type}Step${stepNumber}`);
+            if (stepEl) {
+                stepEl.classList.add('active');
+            }
             
             // Update step indicators
-            document.querySelectorAll(`#${type} .step`).forEach((s, index) => {
-                s.classList.remove('active');
-                if (index < step) s.classList.add('active');
+            updateStepIndicators(type, stepNumber);
+            
+            // Update results if on final step
+            if (type === 'known' && stepNumber === 4) {
+                calculateKnownRisk();
+            } else if (type === 'unknown' && stepNumber === 3) {
+                calculateUnknownRisk();
+            }
+        }
+        
+        function updateStepIndicators(type, activeStepNumber) {
+            const tabId = type === 'known' ? 'tabKnown' : 'tabUnknown';
+            const steps = document.querySelectorAll(`#${tabId} .step`);
+            
+            steps.forEach(step => {
+                const stepNumber = parseInt(step.dataset.step);
+                if (stepNumber <= activeStepNumber) {
+                    step.classList.add('active');
+                } else {
+                    step.classList.remove('active');
+                }
             });
         }
         
         // Symptom Database
         const symptomDatabase = {
             motor: [
-                { id: 'chorea-mild', name: 'Mild chorea', description: 'Occasional involuntary movements' },
-                { id: 'chorea-moderate', name: 'Moderate chorea', description: 'Regular involuntary movements' },
-                { id: 'chorea-severe', name: 'Severe chorea', description: 'Constant involuntary movements' },
-                { id: 'dystonia', name: 'Dystonia', description: 'Muscle contractions causing twisting' },
-                { id: 'rigidity', name: 'Muscle rigidity', description: 'Stiffness and resistance to movement' },
-                { id: 'bradykinesia', name: 'Slowed movements', description: 'General slowing of physical movements' },
-                { id: 'gait-problems', name: 'Gait problems', description: 'Difficulty with walking pattern' },
-                { id: 'balance-issues', name: 'Balance issues', description: 'Problems maintaining balance' },
-                { id: 'falls', name: 'Frequent falls', description: 'Regular loss of balance' }
+                { id: 'chorea', name: 'Chorea', description: 'Involuntary dance-like movements' },
+                { id: 'dystonia', name: 'Dystonia', description: 'Sustained muscle contractions' },
+                { id: 'bradykinesia', name: 'Bradykinesia', description: 'Slowness of movement' },
+                { id: 'rigidity', name: 'Rigidity', description: 'Increased muscle tone' },
+                { id: 'gait', name: 'Gait disturbance', description: 'Walking difficulties' },
+                { id: 'balance', name: 'Balance problems', description: 'Postural instability' },
+                { id: 'dysarthria', name: 'Dysarthria', description: 'Speech difficulties' }
             ],
             cognitive: [
-                { id: 'memory-problems', name: 'Memory problems', description: 'Difficulty remembering recent events' },
-                { id: 'concentration', name: 'Poor concentration', description: 'Trouble focusing on tasks' },
-                { id: 'decision-making', name: 'Decision-making issues', description: 'Difficulty making choices' },
-                { id: 'word-finding', name: 'Word-finding difficulty', description: 'Trouble recalling words' },
-                { id: 'speech-problems', name: 'Speech problems', description: 'Slurred or unclear speech' },
-                { id: 'comprehension', name: 'Comprehension issues', description: 'Difficulty understanding information' }
+                { id: 'memory', name: 'Memory impairment', description: 'Short-term memory problems' },
+                { id: 'executive', name: 'Executive dysfunction', description: 'Planning/organization issues' },
+                { id: 'attention', name: 'Attention deficits', description: 'Difficulty sustaining attention' },
+                { id: 'processing', name: 'Processing speed', description: 'Slowed thinking speed' },
+                { id: 'language', name: 'Language difficulties', description: 'Word finding problems' }
             ],
             psychiatric: [
-                { id: 'depression', name: 'Depression', description: 'Persistent sadness or low mood' },
-                { id: 'anxiety', name: 'Anxiety', description: 'Excessive worry or nervousness' },
-                { id: 'irritability', name: 'Irritability', description: 'Easily annoyed or angered' },
-                { id: 'apathy', name: 'Apathy/Lack of motivation', description: 'Loss of interest or motivation' },
-                { id: 'insomnia', name: 'Insomnia', description: 'Difficulty sleeping' },
-                { id: 'fatigue', name: 'Fatigue', description: 'Constant tiredness' }
+                { id: 'depression', name: 'Depression', description: 'Persistent low mood' },
+                { id: 'anxiety', name: 'Anxiety', description: 'Excessive worry' },
+                { id: 'irritability', name: 'Irritability', description: 'Easily angered' },
+                { id: 'apathy', name: 'Apathy', description: 'Lack of motivation' },
+                { id: 'obsessive', name: 'Obsessive-compulsive', description: 'Repetitive thoughts/behaviors' }
             ],
             functional: [
-                { id: 'work-difficulty', name: 'Work difficulties', description: 'Trouble performing job tasks' },
-                { id: 'daily-tasks', name: 'Daily task problems', description: 'Difficulty with routine activities' },
-                { id: 'driving', name: 'Driving difficulties', description: 'Problems with driving skills' }
+                { id: 'work', name: 'Work disability', description: 'Unable to work' },
+                { id: 'driving', name: 'Driving impairment', description: 'Unable to drive safely' },
+                { id: 'adl', name: 'ADL limitations', description: 'Daily activities difficult' },
+                { id: 'household', name: 'Household tasks', description: 'Difficulty with chores' }
             ]
         };
         
-        // Unknown CAG symptoms (no severity)
+        // Unknown CAG symptoms
         const unknownSymptoms = {
             motor: [
                 { id: 'unknown-chorea', name: 'Involuntary movements', description: 'Uncontrolled movements' },
@@ -1417,11 +2136,6 @@
             ]
         };
         
-        // Store selected symptoms
-        let knownSelectedSymptoms = {};
-        let unknownSelectedSymptoms = {};
-        
-        // Initialize symptoms
         function initializeSymptoms() {
             // Known CAG symptoms
             Object.keys(symptomDatabase).forEach(category => {
@@ -1508,29 +2222,31 @@
             });
             
             // Severity buttons (for known CAG only)
-            severityBtns.forEach(btn => {
-                btn.addEventListener('click', function(e) {
-                    e.stopPropagation();
-                    
-                    // Remove active class from all buttons in this item
-                    severityBtns.forEach(b => b.classList.remove('active'));
-                    
-                    // Add active class to clicked button
-                    this.classList.add('active');
-                    
-                    // Check the checkbox if not already checked
-                    if (!checkbox.checked) {
-                        checkbox.checked = true;
-                        updateSymptomSelection(symptom.id, true, category, type);
-                    } else {
-                        // Update severity for existing selection
-                        if (type === 'known' && knownSelectedSymptoms[symptom.id]) {
-                            knownSelectedSymptoms[symptom.id].severity = this.dataset.severity;
-                            updateSelectedList(type);
+            if (severityBtns.length > 0) {
+                severityBtns.forEach(btn => {
+                    btn.addEventListener('click', function(e) {
+                        e.stopPropagation();
+                        
+                        // Remove active class from all buttons in this item
+                        severityBtns.forEach(b => b.classList.remove('active'));
+                        
+                        // Add active class to clicked button
+                        this.classList.add('active');
+                        
+                        // Check the checkbox if not already checked
+                        if (!checkbox.checked) {
+                            checkbox.checked = true;
+                            updateSymptomSelection(symptom.id, true, category, type);
+                        } else {
+                            // Update severity for existing selection
+                            if (type === 'known' && knownSelectedSymptoms[symptom.id]) {
+                                knownSelectedSymptoms[symptom.id].severity = this.dataset.severity;
+                                updateSelectedList(type);
+                            }
                         }
-                    }
+                    });
                 });
-            });
+            }
             
             return div;
         }
@@ -1554,8 +2270,10 @@
                         // Make sure at least one severity is selected
                         if (!severityBtn) {
                             const mildBtn = symptomItem.querySelector('.severity-btn.mild');
-                            mildBtn.classList.add('active');
-                            knownSelectedSymptoms[symptomId].severity = 'mild';
+                            if (mildBtn) {
+                                mildBtn.classList.add('active');
+                                knownSelectedSymptoms[symptomId].severity = 'mild';
+                            }
                         }
                         
                         symptomItem.classList.add('selected');
@@ -1568,9 +2286,7 @@
                     });
                 }
                 updateSelectedList('known');
-                if (document.getElementById('knownStep4').classList.contains('active')) {
-                    updateKnownResults();
-                }
+                calculateKnownRisk();
             } else {
                 if (isSelected) {
                     const symptom = unknownSymptoms[category].find(s => s.id === symptomId);
@@ -1584,9 +2300,7 @@
                     symptomItem.classList.remove('selected');
                 }
                 updateSelectedList('unknown');
-                if (document.getElementById('unknownStep3').classList.contains('active')) {
-                    updateUnknownResults();
-                }
+                calculateUnknownRisk();
             }
         }
         
@@ -1667,67 +2381,23 @@
             }
         }
         
-        // Charts
-        let knownChart, unknownChart;
-        
+        // Initialize charts
         function initializeCharts() {
-            // Known CAG Chart
+            // Known CAG Progression Chart
             const knownCtx = document.getElementById('knownProgressionChart');
             if (knownCtx) {
                 knownChart = new Chart(knownCtx.getContext('2d'), {
                     type: 'line',
                     data: {
-                        labels: ['Current', '+2', '+4', '+6', '+8', '+10 years'],
-                        datasets: [
-                            {
-                                label: 'Symptom Progression',
-                                data: [0, 15, 30, 50, 70, 85],
-                                borderColor: 'rgb(42, 92, 138)',
-                                backgroundColor: 'rgba(42, 92, 138, 0.1)',
-                                borderWidth: 3,
-                                tension: 0.3,
-                                fill: true
-                            }
-                        ]
-                    },
-                    options: {
-                        responsive: true,
-                        maintainAspectRatio: false,
-                        plugins: {
-                            legend: { display: false }
-                        },
-                        scales: {
-                            y: { 
-                                beginAtZero: true,
-                                max: 100,
-                                ticks: {
-                                    callback: function(value) {
-                                        return value + '%';
-                                    }
-                                }
-                            }
-                        }
-                    }
-                });
-            }
-            
-            // Unknown CAG Chart
-            const unknownCtx = document.getElementById('unknownRiskChart');
-            if (unknownCtx) {
-                unknownChart = new Chart(unknownCtx.getContext('2d'), {
-                    type: 'bar',
-                    data: {
-                        labels: ['Family History', 'Symptoms', 'Duration', 'Age'],
+                        labels: ['Current', '+2 years', '+4 years', '+6 years', '+8 years', '+10 years'],
                         datasets: [{
-                            label: 'Risk Factors',
-                            data: [25, 30, 20, 25],
-                            backgroundColor: [
-                                'rgba(42, 92, 138, 0.7)',
-                                'rgba(74, 159, 213, 0.7)',
-                                'rgba(255, 107, 107, 0.7)',
-                                'rgba(255, 193, 7, 0.7)'
-                            ],
-                            borderWidth: 1
+                            label: 'Disease Progression',
+                            data: [30, 45, 60, 70, 80, 85],
+                            borderColor: 'rgb(42, 92, 138)',
+                            backgroundColor: 'rgba(42, 92, 138, 0.1)',
+                            borderWidth: 3,
+                            tension: 0.4,
+                            fill: true
                         }]
                     },
                     options: {
@@ -1740,10 +2410,62 @@
                             y: {
                                 beginAtZero: true,
                                 max: 100,
+                                title: {
+                                    display: true,
+                                    text: 'Risk Percentage (%)'
+                                },
                                 ticks: {
                                     callback: function(value) {
                                         return value + '%';
                                     }
+                                }
+                            },
+                            x: {
+                                title: {
+                                    display: true,
+                                    text: 'Time from Present'
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+            
+            // Unknown CAG Risk Chart
+            const unknownCtx = document.getElementById('unknownRiskChart');
+            if (unknownCtx) {
+                unknownChart = new Chart(unknownCtx.getContext('2d'), {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['Family History', 'Symptoms', 'Duration', 'Progression', 'Age'],
+                        datasets: [{
+                            data: [25, 30, 20, 15, 10],
+                            backgroundColor: [
+                                'rgba(42, 92, 138, 0.8)',
+                                'rgba(74, 159, 213, 0.8)',
+                                'rgba(255, 107, 107, 0.8)',
+                                'rgba(255, 193, 7, 0.8)',
+                                'rgba(108, 117, 125, 0.8)'
+                            ],
+                            borderColor: [
+                                'rgb(42, 92, 138)',
+                                'rgb(74, 159, 213)',
+                                'rgb(255, 107, 107)',
+                                'rgb(255, 193, 7)',
+                                'rgb(108, 117, 125)'
+                            ],
+                            borderWidth: 2
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                position: 'right',
+                                labels: {
+                                    boxWidth: 12,
+                                    padding: 15
                                 }
                             }
                         }
@@ -1752,183 +2474,534 @@
             }
         }
         
-        // Risk Calculation Functions
-        function calculateKnownRisk() {
-            const age = parseInt(document.getElementById('knownAge').value) || 35;
-            const cag = parseInt(document.getElementById('knownCAG').value) || 42;
-            const symptomCount = Object.keys(knownSelectedSymptoms).length;
-            
-            // Calculate severity score
-            let severityScore = 0;
-            Object.values(knownSelectedSymptoms).forEach(symptom => {
-                switch(symptom.severity) {
-                    case 'mild': severityScore += 1; break;
-                    case 'moderate': severityScore += 2; break;
-                    case 'severe': severityScore += 3; break;
-                }
-            });
-            
-            // Base risk calculation
-            let baseRisk = 0;
-            if (cag >= 40) baseRisk = 50;
-            else if (cag >= 36) baseRisk = 30;
-            else baseRisk = 5;
-            
-            // Adjust for symptoms and severity
-            const symptomAdjustment = (symptomCount * 5) + (severityScore * 3);
-            const totalRisk = Math.min(95, baseRisk + symptomAdjustment);
-            
-            // Calculate other metrics
-            const fiveYearRisk = Math.min(90, totalRisk * 0.6);
-            const tenYearRisk = Math.min(90, totalRisk * 0.8);
-            const expectedOnset = cag >= 40 ? 45 : cag >= 36 ? 55 : 65;
-            const capScore = ((age * cag) / 1000).toFixed(1);
-            
-            // Update display
-            document.getElementById('knownRiskPercentage').textContent = Math.round(totalRisk) + '%';
-            document.getElementById('knownFiveYearRisk').textContent = Math.round(fiveYearRisk) + '%';
-            document.getElementById('knownTenYearRisk').textContent = Math.round(tenYearRisk) + '%';
-            document.getElementById('knownExpectedOnset').textContent = expectedOnset;
-            document.getElementById('knownCAPScore').textContent = capScore;
-            
-            // Update risk circle
-            const riskCircle = document.getElementById('knownRiskCircle');
-            riskCircle.className = 'risk-circle ';
-            if (totalRisk < 30) {
-                riskCircle.classList.add('risk-low');
-                document.getElementById('knownRiskCategory').textContent = 'Low Risk';
-            } else if (totalRisk < 60) {
-                riskCircle.classList.add('risk-medium');
-                document.getElementById('knownRiskCategory').textContent = 'Medium Risk';
-            } else {
-                riskCircle.classList.add('risk-high');
-                document.getElementById('knownRiskCategory').textContent = 'High Risk';
-            }
-            
-            // Update chart
-            if (knownChart) {
-                const progression = [totalRisk * 0.2, totalRisk * 0.4, totalRisk * 0.6, totalRisk * 0.8, totalRisk * 0.95, totalRisk];
-                knownChart.data.datasets[0].data = progression;
+        // Graph control functions
+        function changeGraphType(type, newType) {
+            if (type === 'known' && knownChart) {
+                knownChart.config.type = newType;
+                
+                // Update button states
+                const buttons = document.querySelectorAll('#tabKnown .graph-controls .graph-type-btn');
+                buttons.forEach(btn => {
+                    btn.classList.remove('active');
+                    if (btn.textContent.toLowerCase() === newType) {
+                        btn.classList.add('active');
+                    }
+                });
+                
                 knownChart.update();
             }
+        }
+        
+        function changeUnknownGraphType(newType) {
+            if (unknownChart) {
+                unknownChart.config.type = newType;
+                
+                // Update button states
+                const buttons = document.querySelectorAll('#tabUnknown .graph-controls .graph-type-btn');
+                buttons.forEach(btn => {
+                    btn.classList.remove('active');
+                    if (btn.textContent.toLowerCase() === newType) {
+                        btn.classList.add('active');
+                    }
+                });
+                
+                unknownChart.update();
+            }
+        }
+        
+        function toggleConfidenceIntervals(type) {
+            showConfidenceIntervals = !showConfidenceIntervals;
             
-            return totalRisk;
+            if (type === 'known' && knownChart) {
+                // Update button state
+                const btn = document.querySelector('#tabKnown .graph-controls button:nth-child(3)');
+                btn.classList.toggle('active', showConfidenceIntervals);
+                
+                // In a real app, you would update the chart data here
+                // For now, we'll just update the title
+                knownChart.options.plugins.title = {
+                    display: true,
+                    text: showConfidenceIntervals ? 'Disease Progression with Confidence Intervals' : 'Disease Progression Timeline'
+                };
+                knownChart.update();
+            }
+        }
+        
+        // Update percentage displays
+        function updateKnownPercentageBreakdown() {
+            const container = document.getElementById('knownPercentageBreakdown');
+            if (!container) return;
+            
+            const age = parseInt(document.getElementById('knownAge')?.value) || 35;
+            const cag = parseInt(document.getElementById('knownCAG')?.value) || 42;
+            const symptomCount = Object.keys(knownSelectedSymptoms).length;
+            
+            // Calculate percentages
+            const cagPercentage = Math.min(70, (cag - 35) * 3);
+            const agePercentage = Math.min(40, (age - 20) * 1.5);
+            const symptomPercentage = Math.min(60, symptomCount * 15);
+            
+            const percentages = [
+                { label: 'CAG Repeat Length', value: cagPercentage, color: 'var(--primary)' },
+                { label: 'Current Age', value: agePercentage, color: 'var(--secondary)' },
+                { label: 'Symptom Count', value: symptomPercentage, color: 'var(--danger)' }
+            ];
+            
+            container.innerHTML = '';
+            
+            percentages.forEach(item => {
+                const percentageHTML = `
+                    <div class="percentage-display">
+                        <div class="percentage-value">${Math.round(item.value)}%</div>
+                        <div class="percentage-bar">
+                            <div class="percentage-fill" style="width: ${item.value}%; background: ${item.color};"></div>
+                        </div>
+                    </div>
+                    <div class="percentage-label">${item.label}</div>
+                `;
+                container.innerHTML += percentageHTML;
+            });
+        }
+        
+        function updateUnknownPercentageBars() {
+            const container = document.getElementById('unknownPercentageBars');
+            if (!container) return;
+            
+            const symptomCount = Object.keys(unknownSelectedSymptoms).length;
+            const familyHistory = document.getElementById('familyHistory')?.value || 'none';
+            const duration = document.getElementById('unknownSymptomDuration')?.value || 'moderate';
+            const progression = document.getElementById('symptomProgression')?.value || 'moderate';
+            const age = parseInt(document.getElementById('unknownAge')?.value) || 35;
+            
+            // Calculate percentages
+            const familyPercentage = familyHistory === 'none' ? 10 : 
+                                   familyHistory === 'second' ? 30 :
+                                   familyHistory === 'first' ? 50 : 70;
+            
+            const symptomPercentage = Math.min(80, symptomCount * 25);
+            const durationPercentage = duration === 'none' ? 5 :
+                                      duration === 'recent' ? 20 :
+                                      duration === 'moderate' ? 40 : 60;
+            
+            const progressionPercentage = progression === 'slow' ? 10 :
+                                         progression === 'moderate' ? 30 : 50;
+            
+            const agePercentage = age > 50 ? 40 : age > 40 ? 25 : 10;
+            
+            const percentages = [
+                { label: 'Family History Risk', value: familyPercentage, color: 'var(--primary)' },
+                { label: 'Symptom Presence', value: symptomPercentage, color: 'var(--danger)' },
+                { label: 'Symptom Duration', value: durationPercentage, color: 'var(--warning)' },
+                { label: 'Progression Rate', value: progressionPercentage, color: 'var(--info)' },
+                { label: 'Age Factor', value: agePercentage, color: 'var(--secondary)' }
+            ];
+            
+            container.innerHTML = '';
+            
+            percentages.forEach(item => {
+                const percentageHTML = `
+                    <div class="percentage-display">
+                        <div class="percentage-value">${Math.round(item.value)}%</div>
+                        <div class="percentage-bar">
+                            <div class="percentage-fill" style="width: ${item.value}%; background: ${item.color};"></div>
+                        </div>
+                    </div>
+                    <div class="percentage-label">${item.label}</div>
+                `;
+                container.innerHTML += percentageHTML;
+            });
+        }
+        
+        // REAL HD Calculations
+        function updateRealCalculations() {
+            const age = parseInt(document.getElementById('knownAge').value) || 35;
+            const cag = parseInt(document.getElementById('knownCAG').value) || 42;
+            
+            // Calculate using REAL formulas
+            const capScore = HD_FORMULAS.capScore(age, cag);
+            const langbehnRisk = HD_FORMULAS.langbehn(age, cag) * 100;
+            const onsetAge = HD_FORMULAS.ageOfOnset(cag);
+            const progressionRate = HD_FORMULAS.progressionRate(cag);
+            const tfcDecline = HD_FORMULAS.tfcDecline(cag);
+            
+            // Update real metrics display
+            document.getElementById('realCAPScore').textContent = capScore.toFixed(1);
+            document.getElementById('realProgressionRate').textContent = progressionRate.toFixed(2);
+            document.getElementById('realTFCDecline').textContent = tfcDecline.toFixed(2);
+            document.getElementById('realAgeOnset').textContent = typeof onsetAge === 'number' ? onsetAge.toFixed(0) : onsetAge;
+            
+            // Update symptom cluster analysis
+            updateSymptomClusters();
+            
+            // Update timeline
+            updateTimeline(age, cag, langbehnRisk);
+            
+            // Update comparison metrics
+            updateComparisonMetrics(langbehnRisk);
+        }
+        
+        // Update symptom cluster visualization
+        function updateSymptomClusters() {
+            const clusterGrid = document.getElementById('symptomClusterGrid');
+            if (!clusterGrid) return;
+            
+            clusterGrid.innerHTML = '';
+            
+            const clusters = ['motor', 'cognitive', 'psychiatric', 'functional'];
+            
+            clusters.forEach(clusterName => {
+                const cluster = SYMPTOM_CLUSTERS[clusterName];
+                const selectedSymptoms = getSymptomsByCluster(clusterName);
+                
+                // Calculate cluster impact
+                let clusterImpact = 0;
+                let breakdownHTML = '';
+                
+                selectedSymptoms.forEach(symptom => {
+                    const symptomData = cluster.symptoms[symptom.id];
+                    if (symptomData) {
+                        const severityValue = symptom.severity === 'mild' ? 0.5 : 
+                                           symptom.severity === 'moderate' ? 1.0 : 1.5;
+                        const impact = (symptomData.weight * 100 * severityValue * symptomData.severityMultiplier).toFixed(1);
+                        clusterImpact += parseFloat(impact);
+                        
+                        breakdownHTML += `
+                            <div class="cluster-item">
+                                <span class="item-name">${symptom.name}</span>
+                                <span class="item-value">${impact}%</span>
+                            </div>
+                        `;
+                    }
+                });
+                
+                // Limit impact to 100%
+                clusterImpact = Math.min(100, clusterImpact);
+                
+                const clusterCard = document.createElement('div');
+                clusterCard.className = `cluster-card ${clusterName}`;
+                clusterCard.innerHTML = `
+                    <div class="cluster-title">
+                        <h5><i class="fas fa-${getClusterIcon(clusterName)}"></i> ${clusterName.charAt(0).toUpperCase() + clusterName.slice(1)} Impact</h5>
+                        <div class="cluster-value">${clusterImpact.toFixed(1)}%</div>
+                    </div>
+                    <div class="cluster-bar">
+                        <div class="cluster-fill" style="width: ${clusterImpact}%; background: ${getClusterColor(clusterName)};"></div>
+                    </div>
+                    <div class="cluster-breakdown">
+                        ${breakdownHTML || '<div class="cluster-item"><span class="item-name">No symptoms selected</span><span class="item-value">0%</span></div>'}
+                    </div>
+                `;
+                
+                clusterGrid.appendChild(clusterCard);
+            });
+        }
+        
+        // Helper functions for symptom clusters
+        function getSymptomsByCluster(clusterName) {
+            const symptoms = [];
+            Object.values(knownSelectedSymptoms).forEach(symptom => {
+                if (symptom.category === clusterName) {
+                    symptoms.push(symptom);
+                }
+            });
+            return symptoms;
+        }
+        
+        function getClusterIcon(clusterName) {
+            const icons = {
+                motor: 'running',
+                cognitive: 'brain',
+                psychiatric: 'heartbeat',
+                functional: 'tasks'
+            };
+            return icons[clusterName] || 'circle';
+        }
+        
+        function getClusterColor(clusterName) {
+            const colors = {
+                motor: 'var(--danger)',
+                cognitive: 'var(--warning)',
+                psychiatric: 'var(--info)',
+                functional: 'var(--secondary)'
+            };
+            return colors[clusterName] || 'var(--primary)';
+        }
+        
+        function updateTimeline(age, cag, risk) {
+            const premanifest = document.getElementById('premanifestTimeline');
+            const prodromal = document.getElementById('prodromalTimeline');
+            const manifest = document.getElementById('manifestTimeline');
+            
+            if (cag >= 36) {
+                const onsetAge = HD_FORMULAS.ageOfOnset(cag);
+                const yearsToOnset = Math.max(0, onsetAge - age);
+                
+                if (risk < 20) {
+                    premanifest.textContent = `Estimated ${yearsToOnset.toFixed(0)} years to expected onset`;
+                    prodromal.textContent = 'Prodromal stage may begin in 5-10 years';
+                    manifest.textContent = `Expected onset around age ${onsetAge.toFixed(0)}`;
+                } else if (risk < 50) {
+                    premanifest.textContent = 'Early prodromal changes may be present';
+                    prodromal.textContent = 'Subtle symptoms detectable on examination';
+                    manifest.textContent = `Expected diagnosis in ${yearsToOnset.toFixed(0)} years`;
+                } else {
+                    premanifest.textContent = 'Transitioning to prodromal stage';
+                    prodromal.textContent = 'Clear prodromal symptoms present';
+                    manifest.textContent = 'Likely early manifest HD - consider clinical evaluation';
+                }
+            } else {
+                premanifest.textContent = 'Low risk for manifest HD';
+                prodromal.textContent = 'Regular monitoring recommended';
+                manifest.textContent = 'Clinical evaluation if symptoms progress';
+            }
+        }
+        
+        function updateComparisonMetrics(risk) {
+            const baseline = 0.01; // 0.01% baseline risk
+            const relativeIncrease = risk > 0 ? (risk / baseline).toFixed(0) : 0;
+            
+            document.getElementById('comparisonRisk').textContent = risk.toFixed(1) + '%';
+            document.getElementById('relativeIncrease').textContent = relativeIncrease + 'x';
+        }
+        
+        // View specific symptom cluster
+        function viewCluster(cluster) {
+            const buttons = document.querySelectorAll('.cluster-filters .cluster-filter-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            
+            event.target.classList.add('active');
+            
+            // Filter clusters based on selection
+            const clusters = document.querySelectorAll('.cluster-card');
+            clusters.forEach(clusterCard => {
+                if (cluster === 'all') {
+                    clusterCard.style.display = 'block';
+                } else {
+                    if (clusterCard.classList.contains(cluster)) {
+                        clusterCard.style.display = 'block';
+                    } else {
+                        clusterCard.style.display = 'none';
+                    }
+                }
+            });
+        }
+        
+        // Enhanced Risk Calculation Functions
+        function calculateKnownRisk() {
+            try {
+                const age = parseInt(document.getElementById('knownAge').value) || 35;
+                const cag = parseInt(document.getElementById('knownCAG').value) || 42;
+                const symptomCount = Object.keys(knownSelectedSymptoms).length;
+                
+                // Calculate severity score
+                let severityScore = 0;
+                Object.values(knownSelectedSymptoms).forEach(symptom => {
+                    switch(symptom.severity) {
+                        case 'mild': severityScore += 1; break;
+                        case 'moderate': severityScore += 2; break;
+                        case 'severe': severityScore += 3; break;
+                    }
+                });
+                
+                // Base risk calculation using REAL formula
+                let baseRisk = 0;
+                if (cag >= 40) baseRisk = 50;
+                else if (cag >= 36) baseRisk = 30;
+                else baseRisk = 5;
+                
+                // Adjust for symptoms and severity
+                const symptomAdjustment = (symptomCount * 5) + (severityScore * 3);
+                const totalRisk = Math.min(95, baseRisk + symptomAdjustment);
+                
+                // Calculate other metrics
+                const fiveYearRisk = Math.min(90, totalRisk * 0.6);
+                const tenYearRisk = Math.min(90, totalRisk * 0.8);
+                const expectedOnset = cag >= 40 ? 45 : cag >= 36 ? 55 : 65;
+                const capScore = ((age * cag) / 1000).toFixed(1);
+                
+                // Update display
+                document.getElementById('knownRiskPercentage').textContent = Math.round(totalRisk) + '%';
+                document.getElementById('knownFiveYearRisk').textContent = Math.round(fiveYearRisk) + '%';
+                document.getElementById('knownTenYearRisk').textContent = Math.round(tenYearRisk) + '%';
+                document.getElementById('knownExpectedOnset').textContent = expectedOnset;
+                document.getElementById('knownCAPScore').textContent = capScore;
+                
+                // Update risk circle
+                const riskCircle = document.getElementById('knownRiskCircle');
+                riskCircle.className = 'risk-circle ';
+                if (totalRisk < 30) {
+                    riskCircle.classList.add('risk-low');
+                    document.getElementById('knownRiskCategory').textContent = 'Low Risk';
+                } else if (totalRisk < 60) {
+                    riskCircle.classList.add('risk-medium');
+                    document.getElementById('knownRiskCategory').textContent = 'Medium Risk';
+                } else {
+                    riskCircle.classList.add('risk-high');
+                    document.getElementById('knownRiskCategory').textContent = 'High Risk';
+                }
+                
+                // Update chart data
+                if (knownChart) {
+                    const progression = [totalRisk * 0.3, totalRisk * 0.5, totalRisk * 0.7, totalRisk * 0.85, totalRisk * 0.95, totalRisk];
+                    knownChart.data.datasets[0].data = progression;
+                    knownChart.update();
+                }
+                
+                // Update percentage breakdown
+                updateKnownPercentageBreakdown();
+                
+                // Update REAL calculations
+                updateRealCalculations();
+                
+                return totalRisk;
+            } catch (error) {
+                console.error('Error in calculateKnownRisk:', error);
+                return 0;
+            }
         }
         
         function calculateUnknownRisk() {
-            const age = parseInt(document.getElementById('unknownAge').value) || 35;
-            const symptomCount = Object.keys(unknownSelectedSymptoms).length;
-            const duration = document.getElementById('unknownSymptomDuration').value;
-            
-            // Base risk based on age
-            let baseRisk = 10;
-            if (age > 40) baseRisk += 10;
-            if (age > 50) baseRisk += 15;
-            
-            // Adjust for symptoms
-            const symptomAdjustment = symptomCount * 8;
-            
-            // Adjust for duration
-            let durationAdjustment = 0;
-            switch(duration) {
-                case 'recent': durationAdjustment = 5; break;
-                case 'moderate': durationAdjustment = 15; break;
-                case 'long': durationAdjustment = 25; break;
-            }
-            
-            const totalRisk = Math.min(90, baseRisk + symptomAdjustment + durationAdjustment);
-            const lifetimeRisk = Math.min(95, totalRisk * 1.2);
-            
-            // Update display
-            document.getElementById('unknownRiskPercentage').textContent = Math.round(totalRisk) + '%';
-            document.getElementById('unknownLifetimeRisk').textContent = Math.round(lifetimeRisk) + '%';
-            document.getElementById('unknownGeneticRisk').textContent = Math.round(totalRisk * 0.8) + '%';
-            
-            // Update risk circle
-            const riskCircle = document.getElementById('unknownRiskCircle');
-            riskCircle.className = 'risk-circle ';
-            if (totalRisk < 25) {
-                riskCircle.classList.add('risk-low');
-                document.getElementById('unknownRiskCategory').textContent = 'Low Risk';
-            } else if (totalRisk < 50) {
-                riskCircle.classList.add('risk-medium');
-                document.getElementById('unknownRiskCategory').textContent = 'Medium Risk';
-            } else {
-                riskCircle.classList.add('risk-high');
-                document.getElementById('unknownRiskCategory').textContent = 'High Risk';
-            }
-            
-            // Update chart
-            if (unknownChart) {
-                const chartData = [
-                    totalRisk * 0.3, // Family History
-                    symptomCount * 10, // Symptoms
-                    duration === 'none' ? 5 : 
-                    duration === 'recent' ? 15 :
-                    duration === 'moderate' ? 25 : 35, // Duration
-                    age > 50 ? 30 : age > 40 ? 20 : 10 // Age
-                ];
-                unknownChart.data.datasets[0].data = chartData;
-                unknownChart.update();
-            }
-            
-            return totalRisk;
-        }
-        
-        function updateKnownResults() {
-            if (document.getElementById('knownStep4').classList.contains('active')) {
-                calculateKnownRisk();
-            }
-        }
-        
-        function updateUnknownResults() {
-            if (document.getElementById('unknownStep3').classList.contains('active')) {
-                calculateUnknownRisk();
-            }
-        }
-        
-        // Initialize everything
-        document.addEventListener('DOMContentLoaded', function() {
-            initializeSymptoms();
-            initializeCharts();
-            
-            // Auto-calculate with default values
-            setTimeout(() => {
-                calculateKnownRisk();
-                calculateUnknownRisk();
+            try {
+                const age = parseInt(document.getElementById('unknownAge').value) || 35;
+                const symptomCount = Object.keys(unknownSelectedSymptoms).length;
+                const duration = document.getElementById('unknownSymptomDuration').value;
+                const familyHistory = document.getElementById('familyHistory').value;
+                const progression = document.getElementById('symptomProgression').value;
                 
-                // Auto-select a few symptoms for demo
-                const demoSymptoms = ['chorea-mild', 'memory-problems', 'depression'];
-                demoSymptoms.forEach(symptomId => {
-                    const checkbox = document.getElementById(symptomId);
-                    if (checkbox) {
-                        checkbox.checked = true;
-                        const category = symptomId.includes('chorea') ? 'motor' :
-                                       symptomId.includes('memory') ? 'cognitive' : 'psychiatric';
-                        updateSymptomSelection(symptomId, true, category, 'known');
-                    }
-                });
-            }, 500);
-            
-            // Smooth scrolling for navigation
-            document.querySelectorAll('nav a').forEach(anchor => {
-                anchor.addEventListener('click', function(e) {
-                    const targetId = this.getAttribute('href');
+                // Base risk based on family history
+                let baseRisk = 0;
+                switch(familyHistory) {
+                    case 'none': baseRisk = 5; break;
+                    case 'second': baseRisk = 25; break;
+                    case 'first': baseRisk = 50; break;
+                    case 'multiple': baseRisk = 70; break;
+                }
+                
+                // Adjust for symptoms
+                const symptomAdjustment = symptomCount * 8;
+                
+                // Adjust for duration
+                let durationAdjustment = 0;
+                switch(duration) {
+                    case 'recent': durationAdjustment = 5; break;
+                    case 'moderate': durationAdjustment = 15; break;
+                    case 'long': durationAdjustment = 25; break;
+                }
+                
+                // Adjust for progression
+                let progressionAdjustment = 0;
+                switch(progression) {
+                    case 'slow': progressionAdjustment = -5; break;
+                    case 'rapid': progressionAdjustment = 15; break;
+                }
+                
+                // Age adjustment
+                let ageAdjustment = 0;
+                if (age > 40) ageAdjustment += 10;
+                if (age > 50) ageAdjustment += 15;
+                
+                const totalRisk = Math.min(95, baseRisk + symptomAdjustment + durationAdjustment + progressionAdjustment + ageAdjustment);
+                const lifetimeRisk = Math.min(95, totalRisk * 1.2);
+                const ageAdjustedRisk = Math.min(95, totalRisk * (1 + (age - 35) * 0.01));
+                
+                // Calculate symptom severity index (1-10)
+                const severityIndex = Math.min(10, Math.max(1, Math.round((symptomCount * 2 + durationAdjustment/5) / 3)));
+                
+                // Update display
+                document.getElementById('unknownRiskPercentage').textContent = Math.round(totalRisk) + '%';
+                document.getElementById('unknownLifetimeRisk').textContent = Math.round(lifetimeRisk) + '%';
+                document.getElementById('unknownGeneticRisk').textContent = Math.round(totalRisk * 0.8) + '%';
+                document.getElementById('unknownAgeRisk').textContent = Math.round(ageAdjustedRisk) + '%';
+                document.getElementById('unknownSeverity').textContent = severityIndex;
+                
+                // Update risk circle
+                const riskCircle = document.getElementById('unknownRiskCircle');
+                riskCircle.className = 'risk-circle ';
+                if (totalRisk < 25) {
+                    riskCircle.classList.add('risk-low');
+                    document.getElementById('unknownRiskCategory').textContent = 'Low Risk';
+                } else if (totalRisk < 50) {
+                    riskCircle.classList.add('risk-medium');
+                    document.getElementById('unknownRiskCategory').textContent = 'Medium Risk';
+                } else {
+                    riskCircle.classList.add('risk-high');
+                    document.getElementById('unknownRiskCategory').textContent = 'High Risk';
+                }
+                
+                // Update chart data
+                if (unknownChart) {
+                    const chartData = [
+                        familyHistory === 'none' ? 10 : familyHistory === 'second' ? 30 : familyHistory === 'first' ? 50 : 70,
+                        Math.min(80, symptomCount * 25),
+                        duration === 'none' ? 5 : duration === 'recent' ? 20 : duration === 'moderate' ? 40 : 60,
+                        progression === 'slow' ? 10 : progression === 'moderate' ? 30 : 50,
+                        age > 50 ? 40 : age > 40 ? 25 : 10
+                    ];
+                    unknownChart.data.datasets[0].data = chartData;
+                    unknownChart.update();
+                }
+                
+                // Update percentage bars
+                updateUnknownPercentageBars();
+                
+                return totalRisk;
+            } catch (error) {
+                console.error('Error in calculateUnknownRisk:', error);
+                return 0;
+            }
+        }
+        
+        function calculateAllRisks() {
+            calculateKnownRisk();
+            calculateUnknownRisk();
+        }
+        
+        function selectDemoSymptoms() {
+            // Known CAG demo symptoms
+            const knownDemoSymptoms = ['chorea', 'memory', 'depression', 'work'];
+            knownDemoSymptoms.forEach(symptomId => {
+                const checkbox = document.getElementById(symptomId);
+                if (checkbox) {
+                    checkbox.checked = true;
+                    const category = symptomId === 'chorea' ? 'motor' :
+                                   symptomId === 'memory' ? 'cognitive' :
+                                   symptomId === 'depression' ? 'psychiatric' : 'functional';
+                    updateSymptomSelection(symptomId, true, category, 'known');
                     
-                    // Only handle internal links for smooth scrolling
-                    if (targetId.startsWith('#')) {
-                        e.preventDefault();
-                        const targetElement = document.querySelector(targetId);
-                        if (targetElement) {
-                            window.scrollTo({
-                                top: targetElement.offsetTop - 80,
-                                behavior: 'smooth'
-                            });
-                        }
+                    // Set severity for demo symptoms
+                    const severityBtn = document.querySelector(`[data-id="${symptomId}"] .severity-btn.moderate`);
+                    if (severityBtn) {
+                        severityBtn.click();
                     }
-                });
+                }
             });
-        });
+            
+            // Unknown CAG demo symptoms
+            const unknownDemo = ['unknown-chorea', 'unknown-memory', 'unknown-anxiety'];
+            unknownDemo.forEach(symptomId => {
+                const checkbox = document.getElementById(symptomId);
+                if (checkbox) {
+                    checkbox.checked = true;
+                    const category = symptomId.includes('chorea') ? 'motor' :
+                                   symptomId.includes('memory') ? 'cognitive' : 'psychiatric';
+                    updateSymptomSelection(symptomId, true, category, 'unknown');
+                }
+            });
+        }
+        
+        function setupEventListeners() {
+            // Add Calculate Risk button listeners
+            document.getElementById('calculateKnownRiskBtn')?.addEventListener('click', calculateKnownRisk);
+            document.getElementById('calculateUnknownRiskBtn')?.addEventListener('click', calculateUnknownRisk);
+            
+            // Add input listeners for real-time updates
+            document.getElementById('knownAge')?.addEventListener('input', calculateKnownRisk);
+            document.getElementById('knownCAG')?.addEventListener('input', calculateKnownRisk);
+            document.getElementById('unknownAge')?.addEventListener('input', calculateUnknownRisk);
+            document.getElementById('familyHistory')?.addEventListener('change', calculateUnknownRisk);
+            document.getElementById('unknownSymptomDuration')?.addEventListener('change', calculateUnknownRisk);
+            document.getElementById('symptomProgression')?.addEventListener('change', calculateUnknownRisk);
+        }
     </script>
 </body>
 </html>
